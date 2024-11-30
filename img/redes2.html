@@ -1,0 +1,2473 @@
+<!DOCTYPE HTML>
+<!--
+	Prism by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+
+<head>
+	<title>Programación Paralela</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Banner -->
+	<section id="banner">
+		<div class="inner split">
+			<section>
+				<h2>Programación Paralela</h2>
+			</section>
+
+		</div>
+	</section>
+
+
+	<!-- One -->
+	<section id="one" class="wrapper">
+		<div class="inner split">
+			<section>
+				<h3 id="indice" class="anchor" href="#indice" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Índice</h3>
+				<ol>
+					<li><a href="#two">Introducción/Filosofía</a></li>
+					<!-- CONTRIBUCION DE BRAYAN GARCIA A HISTORIA -->
+					<!-- CONTRIBUCION DE JOSE LUIS PINZON A HISTORIA -->
+					<li><a href="#three">Historia</a></li>
+					<li><a href="#four">Ventajas y desventajas</a></li>
+					<li><a href="#five">Conceptos clave</a></li>
+					<!-- APORTE CAMILO MOSQUERA - SANTIAGO PEÑA -->
+					<li><a href="#eighteen">Concurrencia vs Paralelismo</a></li>
+					<li><a href="#nineteen">Arquitectura de Von Neumann</a></li>
+
+
+					<li><a href="#twentyone">Metodologías de diseño</a></li>
+
+					<!-- APORTE CAMILO MOSQUERA - SANTIAGO PEÑA -->
+					<li><a href="#six">Taxonomía de Flynn</a></li>
+					<li><a href="#seven">Arquitectura</a></li>
+					<!--APORTE MIGUEL CORTES-OSMAR CASTILLO-->
+					<li><a href="#thirteen">Tipos de paralelismo</a></li>
+					<!--APORTE DIEGO CHACÓN-SAMAEL SALCEDO-ANTONIO SUAREZ-->
+					<!-- APORTE NICOLAS RESTREPO -->
+					<li><a href="#twenty">Patrones de control paralelos </a></li>
+					<!-- APORTE CAMILO MOSQUERA - SANTIAGO PEÑA -->
+					<li><a href="#seventeen">Paralelizacion Manual vs Automatica</a></li>
+					<li><a href="#eight">Sincronización</a></li>
+					<li><a href="#nine">Balanceador de carga</a></li>
+
+					<!-- APORTE CAMILO MOSQUERA - SANTIAGO PEÑA -->
+
+					<li><a href="#fourteen">Medidas de rendimiento</a></li>
+					<li><a href="#fifteen">Lenguajes de programacion</a></li>
+					<li><a href="#sixteen">Aplicaciones</a></li>
+					<!--FIN APORTE MIGUEL CORTES-OSMAR CASTILLO-->
+
+					<li><a href="#ten">OpenMP</a></li>
+					<li><a href="#eleven">Presentación y taller</a></li>
+					<li><a href="#twelve">Bibliografía</a></li>
+
+
+				</ol>
+			</section>
+		</div>
+	</section>
+
+	<!-- Two -->
+	<section id="two" class="wrapper style2 alt">
+
+		<div class="inner split">
+			<section>
+				<h2>Introducción</h2>
+
+				<p>El paralelismo es una técnica de computación basada en principios aparentemente simples:</p>
+				<p>"Divida un gran problema en varios pequeños y resuélvalos al mismo tiempo"</p>
+				<p>Esto permite ejecutar más instrucciones en menos tiempo. Pero cuando se pone en práctica, se trata de un tema muy complejo y varios grupos científicos de todo el mundo lo están investigando.</p>
+
+				<p>La computación paralela es el uso de múltiples recursos computacionales para resolver un problema. Se distingue de la
+					computación secuencial en que varias operaciones pueden ocurrir simultáneamente.</p>
+				<p>El paralelismo clásico, o puesto de otra manera, el clásico uso del paralelismo es el de diseño de programas eficientes
+					en el ámbito científico. La simulación de problemas científicos es un área de gran importancia, los cuales requieren
+					de una gran capacidad de procesamiento y de espacio de memoria, debido a las complejas operaciones que se deben realizar.</p>
+				<p>Otro uso clásico es el de las gráficas generadas por computadora. La generación de fotogramas requiere de una gran cantidad
+					de cálculos matemáticos. Esto supone una tarea muy compleja para un solo procesador, luego es necesario que haya algún
+					tipo de paralelismo, para distribuir la tarea para que esta sea realizada eficiente y eficazmente.
+				</p>
+
+			</section>
+			<section>
+				<h2>Filosofía</h2>
+				<h3>¿Qué es computación paralela?</h3>
+				<ul class="checklist">
+					<p>En el sentido más simple, la computación paralela es el uso simultáneo de múltiples recursos computacionales para resolver
+						un problema computacional:
+					</p>
+					<li>Un problema se divide en partes discretas que se pueden resolver simultáneamente</li>
+					<li>Cada parte se descompone en una serie de instrucciones</li>
+					<li>Las instrucciones de cada parte se ejecutan simultáneamente en diferentes procesadores</li>
+					<li>Se emplea un mecanismo global de control/coordinación</li>
+				</ul>
+				<h3>¿Por qué se hace programación paralela?</h3>
+
+				<div class="image">
+					<img src="images/why.jpg" alt="" />
+				</div>
+				<ul class="checklist">
+					<p> El hecho de que la programación paralela sea un paradigma da cuenta de que existe una razón por la cual no ha dejado de ser necesaria
+						o no ha sido totalmente automatizable, igualmente hay otras razones interesantes detrás para entender la existencia, actualidad y contemporaneidad de la programación paralela:
+					</p>
+					<li><b>Overclocking infinito: </b>El overclokcing tiene un límite a pesar de que existiera una refrigeración perpetúa
+						 y adecuada del procesador. Esto es debido a las corrientes parásitas que impiden una velocidad teóricamente infinita
+						 a la cual los circuitos pueden cambiar entre estados, o de hecho sus transistores.</li>
+					<li><b>Automatización del paralelismo: </b>Se dice en este paradigma que el éxito es inversamente proporcional al número de Cores
+						 precisamente porque existen complejidades en el corazón del paralelismo que implican cosas que todavía no se pueden predecir ni
+					 con inteligencia artificial, en este mismo artículo de hecho se menciona cuáles son las posibles estrategias para atacar un problema
+				 de forma paralela, esto da cuenta de que existe una forma prácticamente determinada de abordarlos pero no se automatizarlos, a pesar de que sí
+			 existan algunas partes que son automatizables en el proceso. </li>
+					<li><b>Solución en el hardware: </b>Un diseño adecuado del hardware permitiría que la paralelización siempre estuviera presente con respecto a los procesadores
+						que se están usando  de tal modo que alguno los problemas que son inherentes al paradigma pudieran evitarse.
+						Esto ha resultado imposible hasta la fecha, de hecho, solo diseñar solamente algo tan efectivo y tradicional
+						 como se ha hecho en programación secuencial es algo que no existe hasta ahora. Existen algunas aproximaciones como OpenMP de las que
+					 hablaremos más adelante </li>
+				</ul>
+
+			</section>
+
+
+		</div>
+	</section>
+
+
+
+
+	<!-- Three -->
+	<section id="three" class="wrapper alt">
+		<div class="inner">
+			<section>
+				<h2>Historia</h2>
+				<ul>
+					<li>En <b>1837</b> el profesor británico Charles Babbage hace la primera descripción de la máquina analítica. Con la idea de la máquina analítica posteriormente se daría origen a teorías de paralelismo.</li>
+					<li>En <b>1842</b> el profesor Babbage y el matemático italiano Luigi Menabrea, se encontraron durante un viaje por el este de Italia, que daría como resultado la primera publicación en francés de la máquina analítica.</li>
+					<li>Al año siguiente en <b>1843</b>, la publicación del matemático Menabrea es traducida del francés al inglés por Ada Lovelace. Lovelace daría su aporte a esta publicación con el primer algoritmo para ser procesado por una máquina. Por este aporte es conocida como la primera programadora de ordenadores.</li>
+					<li><b>1954</b> IBM introduce al mercado el IBM 704.</li>
+					<li>En <b>1958</b> S. Gill Ferranti habló sobre programación paralela y la necesidad de “branching” y “waiting”.</li>
+					<li>También en <b>1958</b>, Investigadores de IBM, Cocke y Slotnick, discutieron el uso de paralelismo en cálculos numéricos por primera vez. Este último propone SOLOMON, el cual fue un proyecto para hacer un super computador que nunca se llevo a cabo, pero su diseño sirvió como base para el desarrollo de proyectos futuros.</li>
+				    <li>En <b>1962</b> Burroughs Corporation creó un computador de 4 procesadores que accedía a 16 módulos de memoria. </li>
+				    <li>Ese mismo año se computador ATLAS entra en operación, es la primera máquina en implementar los conceptos de memoria virtual y paginación.</li>
+					<li>Luego en <b>1964</b> La fuerza aérea estadounidense, USAF, financió el diseño del primer computador paralelo masivo ILLIAC IV. (256 procesadores). Slotnick es contratado para empezar el proyecto (usando como contratatistas, por ejemplo, a Texas Instruments)</li>
+					<li>En <b>1965</b> Dijkstra describe y da nombre el problema de las secciones críticas.</li>
+					<li>Ese mismo año, Cooley y Tukey, desarrollan el algoritmo de la transformada rápida de Fourier, el cual sería una de los algoritmos que más ciclos de operaciones de punto flotante demandan</li>
+					<li> Amdahl y Slotnick debatieron sobre la viabilidad del procesamiento en paralelo en <b>1967</b>. De estos debates surgió la ley de Amdahl.</li>
+					<li>En <b>1968</b> Dijkstra describe los semáforos como posible solución al problema de las secciones críticas.</li>
+					<li>Desde <b>1968</b> hasta <b>1976</b> se desarrollan diferentes proyectos en EEUU, Rusia, Japón y algunos paises europeos. La industria tecnológica y las universidades son los sectores que más invierten en investigación sobre paralelismo.</li>
+				    <li>Primera aplicación corriendo en ILLIAC IV <b>(1976)</b>. Por esta razón este computador fue llamado “the most infamous of the supercomputers”, ya que solo fue completado en un 25%, tomó 11 años y 4 veces más al costo estimado.</li>
+					<li>Finalmente, en <b>1981</b> es desmantelado el proyecto ILLIAC IV por la NASA. Aunque se afirma que fue un fracaso en términos económicos, llego a ser el computador más rápido de la época y varios conceptos importantes usados en la construcción del ILLIAC IV se terminan implementando de futuros proyectos de manera exitosa.</li>
+					<li>A mediados de los 80, un nuevo tipo de computador paralelo fue creado cuando el proyecto “Concurrent Computation” de Caltech construyó un supercomputador para aplicaciones científicas. El sistema mostró que se podría lograr un rendimiento extremo usando microprocesadores regulares, disponibles en el mercado.</li>
+				    <li>Empezando a los finales de los 80, los clusters surgieron para competir y con los MPP. Un cluster es un tipo de computador paralelo, construido usando múltiples computadores “off-the-shelf”, conectados usando una red “off-the-shelf”. Hoy en día, los clusters son la arquitectura dominante en los datacenters.</li>
+				    <li>Para los MPP (Massively Parallel Processor) y clusters surgió el estándar MPI (Interfaz de Paso de Mensajes) a mediados de los 90, que convergió de otras API. Para los multiprocesadores con memoria compartida, un proceso de convergencia similar se observó a finales de los 90, con el surgimiento de pthreads y OpenMP.</li>
+				    <li>En la actualidad, la computación paralela se encuentra en la cotidianidad, con la llegada de los procesadores de varios núcleos físicos casi por defecto en la mayoría de dispositivos computacionales. </li>
+				    <li>El software ha sido una parte activa en la evolución de la programación paralela. Los programas paralelos son más difíciles de escribir que los programas secuenciales, ya que se requiere que haya una comunicación y sincronización entre las tareas que se han paralelizado.</li>
+				</ul>
+			</section>
+		</div>
+	</section>
+
+	<section id="four" class="wrapper alt">
+		<div class="inner split">
+			<section>
+				<h2>Ventajas</h2>
+				<ul>
+					<li>Resuelve problemas que no se podrían realizar en una sola CPU</li>
+					<li>Resuelve problemas que no se pueden resolver en un tiempo razonable</li>
+					<li>Permite ejecutar problemas de un orden y complejidad mayor</li>
+					<li>Permite ejecutar código de manera más rápida (aceleración)</li>
+					<li>Permite ejecutar en general más problemas</li>
+					<li>Obtención de resultados en menos tiempo</li>
+					<li>Permite la ejecución de varias instrucciones en simultáneo</li>
+					<li>Permite dividir una tarea en partes independientes</li>
+					<li>Ofrece mejor balance entre rendimiento y costo que la computación secuencial</li>
+					<li>Gran expansión y escalabilidad</li>
+				</ul>
+			</section>
+			<section>
+				<h2>Desventajas</h2>
+				<ul>
+					<li>Mayor consumo de energía</li>
+					<li>Mayor dificultad a la hora de escribir programas</li>
+					<li>Dificultad para lograr una buena sincronización y comunicación entre las tareas</li>
+					<li>Retardos ocasionados por comunicación ente tareas</li>
+					<li>Número de componentes usados es directamente proporcional a los fallos potenciales</li>
+					<li>Altos costos por producción y mantenimiento</li>
+					<li>Condiciones de carrera</li>
+					<ul>
+						<li>Múltiples procesos se encuentran en condición de carrera si el resultado de los mismos depende del orden de su llegada
+						</li>
+						<li>Si los procesos que están en condición de carrera no son correctamente sincronizados, puede producirse una corrupción
+							de datos
+						</li>
+					</ul>
+				</ul>
+			</section>
+		</div>
+	</section>
+
+	<!-- Four -->
+	<!-- Aporte por Sebastian Guerrero Salinas-->
+	<section id="five" class="wrapper style2 alt">
+		<center><h2>Pruebas Conceptos Clave</h2></center>
+		<center><h3>Conceptos acerca de tareas</h3></center>
+		<div class="spotlight">
+			<div class="content">
+				<center><h4>Tareitas</h4></center>
+				<p class="pjustify">
+					Son <b>secciones lógicamente discretas</b> de trabajo computacional. 
+					Una tarea está compuesta de un <b>conjunto de instrucciones</b> que seran ejecutadas por un procesador.
+				</p>
+			</div>
+			<div class="key concept">
+				<br/>
+				<img src="images/tareas.png"/>
+			</div>
+		</div>
+
+		<div class="spotlight">
+			<div class="image">
+				<br/>
+				<center><h4>Granularidad</h4></center>
+				<img src="images/granularidad.png"/>
+			</div>
+			<div class="content">
+				<p class="pjustify">
+					Se refiere al tamaño de cada tarea y a la independiencia de las demás tareas, se dividen en dos categorías.
+					<ul>
+						<li><b>Gruesa:</b> Cantidad relativamente grande de trabajo, alta independencia entre tareas y poca necesidad de sincronización.</li>
+						<li><b>Fina:</b> Cantidades pequeñas de trabajo, poca independencia entre tareas, y una alta demanda de sincronización.</li>
+					</ul>
+				</p>
+			</div>			
+		</div>
+
+		<div class="spotlight">
+			<div class="content">
+				<center><h4>Scheduling</h4></center>
+				<p class="pjustify">
+					Es el proceso en el que <b>las tareas son asignadas a los procesos o hilos</b>, y se les da un orden
+					de ejecución. Este puede ser especificado en el código, en tiempo de compilación o dinámicamente en tiempo de ejecución.
+					El proceso de scheduling debe tener en cuenta la dependencia entre tareas, ya que, aunque muchas pueden ser independientes,
+					otras pueden requerir los datos producidos por otras tareas. <br/>
+					<strong>Criterios de planificación</strong>
+					<ul>
+						<li>
+							Orientados al usuario:
+							<ul>
+								<li>
+									Tiempo de vuelta:
+									Intervalo de tiempo que transcurre entre la solicitud de ejecución de un proceso
+									y su terminación.
+								</li>
+								<li>
+									Tiempo de respuesta:
+									Tiempo transcurrido desde que se hace una solicitud y se empieza el proceso.
+								</li>
+								<li>
+									Plazos:
+									Ocurre cuando se pueden dar plazos de ejecución de procesos,
+									Obligando al planificador a subordinar otros procesos.
+								</li>
+								<li>
+									Previsibilidad:
+									Un proceso deberia ejecutarse en el mismo tiempo siempre
+									(sin importar la carga que se tenga en el sistema).
+								</li>
+							</ul>
+						</li>
+						<li>
+							Orientados al sistema:
+							<ul>
+								<li>
+									Tasa de salida:
+									Consiste en el numero de procesos ejecutados por unidad de tiempo.
+								</li>
+								<li>
+									Utilización del proceso:
+									Cantidad de tiempo que el procesador permanece ocupado.
+								</li>
+								<li>
+									Equidad:
+									Los procesos deben ser tratados todos de igual forma para evitar la
+									inanición de procesos.
+								</li>
+								<li>
+									Prioridades:
+									Se debe poder tener una politica de prioridades para poder favorecer a ciertos
+									procesos que se consideren importantes.
+								</li>
+								<li>
+									Balanceo de recursos:
+									Se debe balancear la carga del sistema de modo que todos sus componentes
+									se mantengan ocupados.
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<strong>Algoritmos de planificación</strong>
+					<ul>
+						<li>FCFS (first-come-first-served)</li>
+						<li>Round Robin</li>
+						<li>"Primero el proceso más corto"</li>
+						<li>"Primero el de menor tiempo restante"</li>
+						<li>"Primero el de mayor tasa de respuesta"</li>
+						<li>realimentación</li>
+					</ul>
+				</p>
+			</div>
+			<div class="image">
+				<br/>
+				<img src="images/scheduling.png"/>
+				<br/>
+				<br/>
+				<img src="images/scheduling2.jpg"/>
+			</div>
+		</div>
+		<center><h3>Conceptos acerca de hilos</h3></center>
+
+		<div class="spotlight">
+			<div class="image">
+				<br/>
+				<center><h4>Hilos</h4></center>
+				<img src="images/hilos.png"/>
+				<br/>
+			</div>
+			<div class="content">
+				<p class="pjustify">
+					Un proceso pesado padre puede convertirse en varios <b>procesos livianos hijos</b>, ejecutados de manera concurrente. Cada
+					uno de estos procesos livianos se conoce como <b>hilo</b>. Estos se comunican entre ellos a través de la memoria global.
+				</p>
+			</div>			
+		</div>
+
+		<div class="spotlight">
+			<div class="content">
+				<center><h4>Sincronización</h4></center>
+				<p class="pjustify">
+					Los programas en paralelo necesitan la <b>coordinación de procesos
+					e hilos, para que haya una ejecución correcta</b>. Los métodos de coordinación y sincronización en la programación paralela
+					están fuertemente asociados a la manera en que los procesos o hilos intercambian información y esto depende de cómo
+					está organizada la memoria en el hardware.
+				</p>
+			</div>
+			<div class="image">
+				<br/>
+				<img src="images/sincronizacion.png"/>
+				<br/>
+			</div>
+		</div>
+
+		<div class="spotlight">
+			<div class="image">
+				<br/>
+				<center><h4>Mapping o Mapeo</h4></center>
+				<img src="images/mapping.png"/>
+				<br/>
+			</div>
+			<div class="content">
+				<p class="pjustify">
+					Mapping en el proceso de <b>asignación de procesos e hilos a unidades de procesamiento</b>, procesadores o núcleos. 
+					Usualmente el mapping se hace por el sistema en tiempo de ejecución, aunque en ocasiones puede ser influenciado por el programador.
+				</p>
+			</div>
+		</div>
+
+		<center><h3>Otros conceptos importantes</h3></center>
+
+		<div class="spotlight">
+			<div class="content">
+				<center><h4>Balanceo de carga</h4></center>
+				<p class="pjustify">
+					Se refiere a la práctica de distribuir <b>cantidades equitativas de trabajo</b> entre las tareas,
+					de modo que todas las tareas se mantengan ocupadas todo el tiempo. Se puede considerar una 
+					minimización del tiempo de inactividad de la tarea. Algunos puntos a tener en cuenta con el balanceo de carga son:
+					<ul>
+						<li>Asignar el trabajo que recibe cada tarea equitativamente</li>
+
+						<li>Puede ser un factor significativo en el desempeño del programa </li>
+
+						<li>A menudo requiere "serialización" de segmentos del programa.</li>
+					</ul>
+				</p>
+			</div>
+			<div>
+				<br/>
+				<img src="images/balanceador.png" width="300" height="300"/>
+				<br/>
+				<br/>
+			</div>
+		</div>
+
+		<div class="spotlight">
+			<div class="image">
+				<br/>
+				<center><h4>Speedup</h4></center>
+				<img src="images/speed.png"/>
+				<br/>
+			</div>
+			<div class="content">
+				<p class="pjustify">
+					Es un proceso para <b>aumentar el rendimiento</b> entre dos sistemas procesando el mismo problema. Es la
+					mejora en la velocidad de ejecución de una tarea ejecutada en <b>dos arquitecturas similares</b> con diferentes recursos.
+					El SpeedUp resresenta la ganacia que se obtiene en la version paralela del programa respecto a la version secuencial del mismo.
+				</p>
+				<img class="key concept" src="images/formula4.png"/>
+			</div>			
+		</div>
+
+		<div class="spotlight">
+			<div class="content">
+				<center><h4>Overhead</h4></center>
+				<p class="pjustify">
+					Es la cantidad de <b>tiempo requerido para coordinar tareas paralelas</b>, en lugar de hacer un
+					trabajo útil. Incluye factores como:
+					<ul>
+						<li>Tiempo de inicio de la tarea</li>
+						<li>Sincronización</li>
+						<li>Comunicaciones de datos</li>
+						<li>Sobrecarga de software impuesta por lenguajes paralelos, bibliotecas, sistema operativo, etc.</li>
+						<li>Tiempo de terminación de la tarea</li>
+					</ul>
+				</p>
+			</div>
+			<div>
+				<br/>
+				<img src="images/overhead.png"/>
+			</div>
+		</div>
+
+		<div class="spotlight">
+			<div >
+				<br/>
+				<center><h4>Sección crítica</h4></center>
+				<img src="images/critic_sec.gif"/>
+				<br/>
+			</div>
+			<div class="content">
+				<p class="pjustify">
+					Es un segmento de código que manipula un recurso y se debe ejecutar de forma <b>atómica</b>, es decir, que no debe de 
+					ser accedido por más de un hilo en ejecución.
+				</p>
+			</div>
+		</div>
+
+		<div class="spotlight">
+			<div class="content">
+				<center><h4>Condición de carrera</h4></center>
+				<p class="pjustify">
+					Es la representación del <b>acceso de dos o más procesos a un recurso compartido sin control</b>, 
+					este acceso depende del orden de llegada de los procesos
+				</p>
+			</div>
+			<div class="image">
+				<br/>
+				<img src="images/race.jpg"/>
+				<br/>
+			</div>
+		</div>
+
+		<div class="spotlight">
+			<div >
+				<br/>
+				<center><h4>Pipelining</h4></center>
+				<img src="images/pipelining2.png"/>
+				<br/>
+			</div>
+			<div class="content">
+				<p class="pjustify">
+					Es la <b>ruptura o segmentación</b> de una tarea en pasos realizados por diferentes unidades de procesador.
+					El pipelining proviene de la idea de que en una tubería no es necesario esperar a que todo el agua dentro salga, 
+					para que pueda entrar más. Los procesadores modernos tienen un <b>pipeline</b> que separa las instrucciones en 
+					<b>varias etapas</b>, donde cada etapa corresponde a una acción diferente que necesita la salida de la anterior.
+				</p>
+			</div>
+		</div>
+
+		<div class="spotlight">
+			<div class="content">
+				<center><h4>Cooperación</h4></center>
+				<p class="pjustify">
+					Es esa característica de los procesos que los orienta <b>trabajar conjuntamente</b>
+				</p>
+			</div>
+			<div>
+				<br/>
+				<img src="images/cooperation.jpg" width="250" height="250"/>
+				<br/>
+			</div>
+		</div>
+
+		<center><h3>Algunas leyes para tener en cuenta</h3></center>
+
+		<div class="spotlight">
+			<div class="content">
+				<center><h4>Ley de Amdahl</h4></center>
+				<p class="pjustify">
+					Ley de la computación formulada por Gene Amdahl y dicta que la mejora obtenida en el rendimiento de un sistema debido 
+					a la alteración de uno de sus componentes está limitada por la fracción de tiempo que se utiliza dicho componente. 
+					Sea f el porcentaje paralelizado del programa expresado en decimal, la ley de Amdahl
+					dice que llega un punto en el cual sin importar que el numero de procesadores sea muy alto , el speedup se va a comportar
+					de manera lineal; esto de acuerdo al porcentaje que esté paralelizado el código. El speedup de un programa con un
+					fragmento paralelizado se calcula con:
+				</p>
+				<div class="image">
+					<img src="images/formula5.png" alt="" width="140" />
+				</div>
+				<p class="pjustify">
+					Esta ley ayuda a definir si introducir una mejora en el sistema vale o no la pena
+				</p>
+			</div>
+			<div class="image">
+				<img src="images/graficaAmdahl.png" alt="" width="150" />
+			</div>
+		</div>
+
+		<div class="spotlight">
+			<div class="image">
+				<br/>
+				<center><h4>Ley de Gustafson</h4></center>
+				<img src="images/graficaGustafson.png"/>
+				<br/>
+			</div>
+			<div class="content">
+				<p class="pjustify">
+					Ley de la computación formulada por John L Gustafson en 1988, también llamada ley de Gustafson-Barsis, es una ley en ciencia de la computación 
+					que establece que cualquier problema suficientemente grande puede ser eficientemente paralelizado, ofrece un nuevo punto de vista y así una 
+					visión positiva de las ventajas del procesamiento paralelo.
+				</p>
+				<div class="image">
+					<img src="images/Gust_For1.PNG" alt="" width="140" />
+				</div>
+				<p class="pjustify">
+					En su fórmula, P es el número de procesadores, S es el speedup (aceleración), y α la parte no paralelizable del proceso. 
+				</p>
+			</div>
+		</div>
+
+		<div class="spotlight">
+			<div class="content">
+				<center><h4>Ley de Moore</h4></center>
+				<p class="pjustify">
+					Ley propuesta por Gordon E. Moore en 1965, inicialmente decía resumidamente que el número de transistores en un chip determinado
+					se doblaría cada año aunque unos años más tarde, en 1975, modificó su propia ley para aumentar esta cadencia a cada dos años. 
+					Esto quiere decir un aumento del rendimiento en los procesadores del alrededor del 50%,
+					esto se traduce en escalar la velocidad de reloj de los procesadores, pero esta ley no es fidedigna desde el 2002
+					dónde solo ha habido un 20%, lo cual sigue siendo un aumento considerable, sin embargo, para que esto sea posible 
+					es necesario reducir el tamaño de los transistores para que todos los
+					avances en computación que se han logrado hasta el día y las necesidades de procesamiento en crecimiento exponencial puedan satisfacerse
+					totalmente. <br/> Veamos en la gráfica adjunta que el problema principal es que la ley no puede continuar indeterminadamente
+					porque esto implica un crecimiento exponencial, el cuál es imposible de mantener por espacio, pero principalmente
+					por el punto de la temperatura mismo, se puede ver que si esto fuese cierto llegaría muy pronto el año en que un solo procesador
+					alcanzara la temperatura de la superficie del sol.
+				</p>
+			</div>
+			<div class="image">
+				<img src="images/moore.jpg" alt="" />
+				<p class="pjustify">
+					<br/>La unidad de medida de transistores en superficie es MTr/mm<sup>2</sup> o millones de transistores por milímetro cuadrado
+				</p>
+			</div>
+		</div>
+
+	</section>
+
+	<section id="eighteen" class="wrapper style2 alt">
+			<h2>
+				Concurrencia vs Paralelismo
+			</h2>
+			<div class="inner split">
+
+				<section>
+					<h3>Concurrencia</h3>
+					<p class="pjustify">
+						Capacidad de operar actividades al mismo tiempo. Es decir se pueden tener varios procesos corriendo cada uno en un procesador
+						o puede haber varios proceso que corran solo en un procesador
+
+					</p>
+				</section>
+
+				<section>
+					<h3>Paralelismo</h3>
+					<p class="pjustify">
+						Son muchas actividades teniendo lugar al mismo tiempo, “la cualidad o el estado de ser paralelo”. El hecho de ser paralelo
+						implica que solo se pueden tener varios procesos corriendo cada uno en un procesador.
+					</p>
+				</section>
+			</div>
+			<div class="image">
+				<img src="images\pvsc.jpeg" alt="" width="600" /><br>
+				<img src="images/cvsa.png" alt="" width="600" />
+			</div>
+
+	</section>
+
+	<section id="nineteen" class="wrapper style2 alt">
+		<center><h2>Arquitectura de Von Neumann</h2></center>
+		<div class="inner">
+			<div class="spotlight">
+				<div class="content">
+					<p class="pjustify">
+						Se caracterizaba por guardar las instrucciones de los procesos y los datos en una memoria electronica, a diferencia
+						de como se modelaban los computadores de la epoca a través de una conexion de cables
+					</p>
+					<h4>Componentes principales</h4>
+					<ul>
+						<li>Memoria</li>
+						<li>Unidad de control</li>
+						<li>Unidad Aritmetica Logica</li>
+						<li>Entradas/Salidas</li>
+					</ul>
+					<h4>Memoria de acceso aleatorio</h4>
+					<p class="pjustify">
+						En la memoria de acceso aleatorio se almacenaban los datos y los programas que estaban siendo ejecutados
+					</p>
+					<ul>
+						<li>Las instrucciones del programa son datos codificados que le dicen al computador que es lo que tiene que hacer</li>
+						<li>Los datos son simplemente informacion que sera usada por el programa</li>
+					</ul>
+				</div>
+				<div class="image">
+					<img src="images/vonn.png" alt="" width="500" />
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<section id="twentyone" class="wrapper style2 alt">
+		<center><h2>Metodologias de diseño</h2></center>
+			<section>
+				<p class="pjustify">
+					Cuando se diseña un algoritmo paralelo es necesario tener
+					en cuenta:
+					<ol>
+						<li>Los tiempos de las comunicaciones.</li>
+						<li>Maximizar el procesamiento en cada nodo o unidad de
+						procesamiento.</li>
+						<li>Los costes de implementar el algoritmo.</li>
+						<li>Tiempos de planificación (scheduler).</li>
+					</ol>
+					<center><h3>Metodologia foster</h3></center>
+					Consiste en cuatro etapas
+					<ol>
+						<li><b>Particionamiento: </b>En el dominio de los datos o de funciones.</li>
+						<li><b>Comunicaciones: </b> Se hace por medio de distintos medios o paradigmas tales como la memoria o paso de mensajes</li>
+						<li><b>Aglomeración: </b>Las tareas o datos son agrupados teniendo en cuenta posibles dependencias</li>
+						<li><b>Mapeo: </b>Los grupos son asignados a una unidad de procesamiento</li>
+					</ol>
+					En la siguiente imagen se puede ver descrito el proceso de forma gráfica: <br/>
+					<div class="image">
+						<img src="images/foster.jpg" alt="" />
+					</div>
+			</section>
+	</section>
+
+	
+	<section id="six" class="wrapper style2 alt">
+		<div class="inner">
+			<div class="spotlight">
+				<div class="content">
+					<h2>Taxonomia de Flynn</h2>
+					<h3>Single Instruction, Single Data (SISD)</h3>
+					<p class="pjustify">
+						Hay un elemento de procesamiento, que tiene acceso a un único programa y a un almacenamiento de datos. En cada paso, el elemento
+						de procesamiento carga una instrucción y la información correspondiente y ejecuta esta instrucción. El resultado es
+						guardado de vuelta en el almacenamiento de datos. Luego SISD es el computador secuencial convencional, de acuerdo
+						al modelo de von Neumann.
+					</p>
+				</div>
+				<div class="image">
+					<img src="images/sisd.png" alt="" width="140" />
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="content">
+					<h3>Multiple Instruction, Single Data (MISD)</h3>
+					<p class="pjustify">
+						Hay múltiples elementos de procesamiento, en el que cada cual tiene memoria privada del programa, pero se tiene acceso común
+						a una memoria global de información. En cada paso, cada elemento de procesamiento de obtiene la misma información
+						de la memoria y carga una instrucción de la memoria privada del programa. Luego, las instrucciones posiblemente diferentes
+						de cada unidad, son ejecutadas en paralelo, usando la información (idéntica) recibida anteriormente. Este modelo es
+						muy restrictivo y no se ha usado en ningún computador de tipo comercial.
+					</p>
+				</div>
+				<div class="image">
+					<img src="images/misd.png" alt="" />
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="content">
+					<h3>Single Instruction, Multiple Data (SIMD): </h3>
+					<p class="pjustify">
+						Hay múltiples elementos de procesamiento, en el que cada cual tiene acceso privado a la memoria de información (compartida
+						o distribuida). Sin embargo, hay una sola memoria de programa, desde la cual una unidad de procesamiento especial
+						obtiene y despacha instrucciones. En cada paso, cada unidad de procesamiento obtiene la misma instrucción y carga
+						desde su memoria privada un elemento de información y ejecuta esta instrucción en dicho elemento. Entonces, la instrucción
+						es síncronamente aplicada en paralelo por todos los elementos de proceso a diferentes elementos de información. Para
+						aplicaciones con un grado significante de paralelismo de información, este acercamiento puede ser muy eficiente. Ejemplos
+						pueden ser aplicaciones multimedia y algoritmos de gráficos de computadora.
+					</p>
+				</div>
+				<div class="image">
+					<img src="images/simd.png" alt="" />
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="content">
+					<h3>Multiple Instruction, Multiple Data (MIMD):</h3>
+					<p class="pjustify">
+						Hay múltiples unidades de procesamiento, en la cual cada una tiene tanto instrucciones como información separada. Cada elemento
+						ejecuta una instrucción distinta en un elemento de información distinto. Los elementos de proceso trabajan asíncronamente.
+						Los clusters son ejemplo son ejemplos del modelo MIMD.
+					</p>
+				</div>
+				<div class="image">
+					<img src="images/mimd.png" alt="" />
+				</div>
+			</div>
+
+
+		</div>
+	</section>
+
+	<section id="thirteen" class="wrapper style2 alt">
+		<center><h2>Tipos de paralelismo</h2></center>
+		<div class="inner">
+			<div class="spotlight">
+				<div class="contentmo">
+					<h3>Paralelismo a nivel de bit:</h3>
+					<p class="pjustify">
+						Se habla de paralelismo al nivel de bit, cuando se <b>aumenta el tamaño de la palabra del procesador</b> (tamaño de la cadena de bits a procesar).
+						Este aumento reduce el número de instrucciones que tiene que ejecutar el procesador en variables cuyos tamaños sean mayores a la longitud de la cadena.
+					</br>
+						<b>Ejemplo:</b> En un procesador de 8-bits sumar dos números de 16bits tomaría dos instrucciones.
+						En un procesador de 16-bits esa operación requiere solo una instrucción.
+					</p>
+				</div>
+				<div class="contentmo">
+					<img src="images/tipo-bit.png" />
+					<b>Nota:</b> este método está “estancado” desde el establecimiento de las arquitecturas de 32 y 64 bits.
+				</div>
+			</div>
+			<div class="spotlight">
+				<div class="contentmo">
+					<h3>Paralelismo a nivel de instrucción</h3>
+					<p class="pjustify">
+						Este tipo de paralelismo consiste en <b>cambiar el orden de las intrucciones</b> de un programa y juntarlas en grupos
+						para posteriormente ser ejecutados en paralelo <b>sin alterar el resultado final</b> del programa.
+					</p>
+				</div>
+				<div class="contentmo">
+					<p class="pjustify">
+						<b>Ejemplo:</b> Un pipeline de 5 etapas: fetch (buscar la instrucción), decode (decodificarla), execute (ejecutarla),
+						write (escribir en memoria el resultado de la operación).
+					</p>
+					<img src="images/pipelining.png" />
+					<p class="pjustify">
+						En el gráfico anterior se observa el procesamiento de dos instrucciones sin pipeline, tomando un tiempo de 8 ciclos,
+						y con pipeline reduciendo este tiempo a solo 5 ciclos.
+					</p>
+				</div>
+			</div>
+			<div class="spotlight">
+				<div class="contentmo">
+					<br>
+					<h3>Paralelismo a nivel de datos</h3>
+					<p class="pjustify">
+						<b>Cada procesador</b> realiza <b>la misma tarea</b> sobre un subconjunto independiente de datos.</br>
+						<b>Ej:</b> Dos granjeros se dividen el área de césped a podar.</br></br>
+						El caso clásico de paralelismo de datos, es el cálculo de pi por partes usando el método de monte carlo:</br>
+					</p>
+					<img src="images/tipo-datos(pi).png"/>
+					<p>Ejemplo hecho en python</p>
+				</div>
+				<div class="contentmo">
+					<h3>Paralelismo a nivel de tareas</h3>
+					<p class="pjustify">
+						<b>Cada hilo</b> realiza <b>una tarea distinta</b> e independiente de las demás.</br>
+						<b>Ej:</b> Un granjero poda el césped, el otro cosecha.</br>
+					</p>
+					<img src="images/tipo-tareas.jpg"/>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- APORTE DIEGO CHACON, ANTONIO SUAREZ, SAMAEL SALCEDO-->
+	<section id="twenty" class="wrapper style2 alt">
+		<div class="inner">
+				<div class="spotlight">
+					<div class="content">
+						<h2>Patrones de diseño paralelo</h2>
+						<p class="pjustify">
+							Los patrones se han establecido como buenas practicas a la hora de realizar ingeniería de
+							software.
+						</p>
+						<p class="pjustify">
+							Los patrones de control en el caso de la programación paralela son maneras de combinar la distribución de los procesos
+							y el acceso a los datos para la solucion de un problema.
+						</p>
+					</div>
+				</div>
+
+				<div class="spotlight">
+					<div class="content">
+						<h3>Fork-Join</h3>
+						<p class="pjustify"> 
+							En este patrón de diseño se generan dos ejecuciones concurrentes,
+							que empieza inmediatamente después de que el fork es llamado en código, después,
+							se usa join para combinar estas dos ejecuciones concurrentes en una. Cada join puede unirse entonces a su fork
+							correspondiente y lo hace antes de las otras terminen.
+						</p>
+					</div>
+					<div class="image">
+						<img src="images/Fork-join.png" alt="" width="140" />
+					</div>
+				</div>
+
+				<div class="spotlight">
+					<div class="image">
+							<img src="images/Map.png" alt="" width="140" />
+					</div>
+					<div class="content">
+							<h3> Map </h3>
+									<p class="pjustify">
+										Map es un patrón que replica una función sobre todos los elementos de un conjunto de entrada. La función que
+										está siendo replicada se llama <b>función elemental</b>, dada que la misma se aplica a una coleccion real de datos.
+									</p>
+							</div>
+					</div>
+
+				<div class="spotlight">
+					<div class="content">
+						<p>
+								<h3>Stencil</h3>
+								<p class="pjustify">
+									Stencil es un generalización del patron de Map, en el cual una <b>función elemental</b> tiene acceso no solo a un elemento
+									del conjunto de entrada sino también a un conjunto de "vecinos"
+								</p>
+								<p class="pjustify">
+									Como la estructura de datos no es infinita se deben tener en cuenta el manejo de excepciones para los bordes de la misma.
+								</p>
+						</p>
+					</div>
+					<div class="image">
+						<img src="images/Stencil.png" alt="" height="280" />
+					</div>
+				</div>
+
+				<div class="spotlight">
+					<div class="image">
+						<img src="images/Reduccion.png" alt="" />
+					</div>
+					<div class="content">
+						<p>
+							<h3>Reducción</h3>
+							<p class="pjustify">
+								Una reducción combina cada elemento de una colección en uno solo utilizado una función asociativa conocida como
+								<b>función combinatoria</b>. Como es asociativa las tareas se pueden distribuir de muchas maneras y si la función resultara
+								ser también conmutativa el número de posibilidides aumentaría aún más.
+							</p>
+						</p>
+					</div>
+				</div>
+
+				<div class="spotlight">
+					<div class="content">
+						<p>
+							<h3>Scan</h3>
+							<p class="pjustify">
+								Scan realiza las reducciones de cada elemento perteneciente a una estructura. En otras palabras cada elemento de salida es la
+								reduccion de un elemento de entrada.
+								A traves de una <b>función sucesora</b> se avanza de un estado al otro haciendo <i> folds </i> en el proceso asociativo.
+							</p>
+						</p>
+					</div>
+					<div class="image">
+						<img src="images/Scan.png" alt="" />
+					</div>
+				</div>
+
+
+				<div class="spotlight">
+					<div class="image">
+							<img src="images/parbeginparend.jpeg" alt="" width="140" />
+					</div>
+					<div class="content">
+							<h3> ParBegin - ParEnd </h3>
+									<p class="pjustify">
+										Parbegin y Parend originalmente propuesto por Dijsktra es un patrón para lenguajes estructurados en bloque
+										como Pascal y permiten una especificación explicita del paralelismo, todo lo que esté contenido entre ambos
+										será ejecutado en hilos separados en tanto se necesite y se genera un grafo de precedencia como el que se ve en la imagen,
+										donde se muestra simplemente el orden de las instrucciones a ejecutar.
+
+									</p>
+							</div>
+					</div>
+
+
+					<div class="spotlight">
+						<div class="content">
+								<h3> Maestro / Esclavo </h3>
+									<p class="pjustify">
+										Es usada cuando se tienen dos o más procesos que necesitan ejecutarse simultanea
+										y continuamente pero a diferentes velocidades. Si estos procesos corren en un único ciclo,
+										pueden suceder problemas de temporización graves. Estos problemas de temporización ocurren
+										cuando una parte del ciclo tarda más en ejecutarse de lo esperado. Si esto sucede, la sección
+										restante del ciclo se atrasa. El patrón Maestro/Esclavo consiste en múltiples ciclos en paralelo.
+										Un ciclo actúa como el maestro y los otros como esclavos. El ciclo maestro controla a todos los demás.
+									</p>
+						</div>
+						<div class="image">
+							<img src="images/master_slave.png"/>
+						</div>
+					</div>
+
+
+						<div class="spotlight">
+							<div class="content">
+								<h3> SPMD - SIMD </h3>
+									<p class="pjustify">
+										Esto viene de la taxonomia Flynn  SPMD (Single Program, Multiple Data), múltiples procesadores autónomos
+										ejecutan simultáneamente el mismo programa en puntos independientes, SIMD (Single instructon, multiple data)
+										está basado en organizar los datos relevantes al problema en estructuras de datos iterativas como arreglos y
+										en definir la computación en términos de una secuencia de actualizaciones paralelas en paralelo con estas estructuras
+										de datos.
+									</p>
+							</div>
+							<div class="image">
+								<img src="images/spmd_simd.gif"/>
+							</div>
+						</div>
+
+
+							<div class="spotlight">
+								<div class="content">
+									<h3> Creación de hilos y procesos </h3>
+										<p class="pjustify">
+											Los hilos se distinguen de los tradicionales procesos en que los procesos son generalmente independientes,
+											llevan bastante información de estados, e interactúan sólo a través de mecanismos de comunicación dados por el sistema.
+											Por otra parte, muchos hilos generalmente comparten otros recursos directamente. En muchos de los sistemas operativos que
+											proveen facilidades para los hilos, es más rápido cambiar de un hilo a otro dentro del mismo proceso, que cambiar de un proceso a otro.
+										</p>
+								</div>
+								<div class="image">
+								<img src="images/hilo_proceso.png"/>
+							</div>
+							</div>
+			</div>
+	</section>
+
+	<section id="seven" class="wrapper style2 alt">
+		<div class="inner">
+			<div class="spotlight">
+				<div class="content">
+					<h2>Arquitecturas de memoria de computación paralela</h2>
+					<p>
+						<h3>Memoria compartida</h3>
+						<ul>
+							<li>Los procesos comparten un espacio de memoria común</li>
+
+							<li>Escriben y leen de manera asíncrona</li>
+
+							<li>No es necesario especificar cómo se comunican los datos entre las tareas</li>
+
+							<li>Se usan semáforos o locks para controlar el acceso a la memoria compartida</li>
+						</ul>
+
+						<b> Uniform Memory Access (UMA):</b>
+						<ul>
+							<li>Lo más comúnmente representado hoy por las máquinas Symmetric Multiprocessor (SMP)</li>
+
+							<li>Procesadores idénticos</li>
+
+							<li>Igual acceso y tiempos de acceso a la memoria</li>
+							<li>Si un procesador actualiza una ubicación en memoria compartida, todos los demás procesadores saben sobre la actualización,
+								esto es llamado coherencia del caché</li>
+						</ul>
+				</div>
+				<div class="image">
+					<img src="images/uma.gif" alt="" width="140" />
+				</div>
+			</div>
+			<div class="spotlight">
+				<div class="content">
+					<b> Non-Uniform Memory Access (NUMA)</b>
+					<ul>
+						<li>Hecho mediante la vinculación física de dos o más SMP</li>
+
+						<li>Un SMP puede acceder directamente a la memoria de otro SMP</li>
+
+						<li>No todos los procesadores tienen igual tiempo de acceso a toda la memoria</li>
+
+						<li>El acceso a la memoria es más lento</li>
+
+						<li>Si se mantiene la coherencia del caché</li>
+					</ul>
+					</p>
+
+				</div>
+				<div class="image">
+					<img src="images/numa.gif" alt="" width="140" />
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="content">
+					<p>
+						<h3>Memoria distribuida</h3>
+						<p class="pjustify"> 
+							Esta arquitectura se basa en múltiples procesadores con su propia memoria física privada, las tareas pueden operar
+							solo con información local y se necesita de la comunicación para obtener información remota, a través también de procesadores remotos
+							Hay cuatro implementaciones que pueden servir como ejemplo conocidas para esta arquitectura tales como: múltiples sistemas operativos, Middlewares, clusters y grids.
+							Las razones por las que se prefiere esta arquitectura en ciertos escenarios es porque en principio se pueden
+							añadir tantas unidades de procesamiento como la red pueda soportar, pero las limitaciones recaen directamente en ella.
+						</p>
+						<ul>
+
+							<li>También llamado modelo de paso de mensajes</li>
+
+							<li>requieren una red de comunicación para conectar la memoria entre procesadores</li>
+
+							<li>Las tareas intercambian datos por medio del paso y recepción de mensajes</li>
+
+							<li>Los procesadores tienen su propia memoria local. Las direcciones de memoria en un procesador no se asignan a otro
+								procesador, por lo que no hay concepto de espacio de direcciones global en todos los procesadores.</li>
+
+							<li>Debido a que cada procesador tiene su propia memoria local, funciona independientemente. Los cambios que hace en
+								su memoria local no tienen ningún efecto en la memoria de otros procesadores. Por lo tanto, el concepto de coherencia
+								de caché no se aplica.</li>
+
+							<li>Cuando un procesador necesita acceso a los datos de otro procesador, suele ser la tarea del programador definir explícitamente
+								cómo y cuándo se comunican los datos. La sincronización entre tareas también es responsabilidad del programador.</li>
+
+						</ul>
+
+						<h4>Ejemplos de memoria distribuida</h4>
+						<ul>
+
+							<li><b>Clusters: </b> Colección de computadores que se encuentran interconectados mediante redes de alta velocidad (Ethernet, SCI, Myrinet, Infiniband)
+								Existe una categorización hecha por la organización TOP500 que lleva cuenta de los clusteres más poderosos de la tierra con capacidad de procesamiento
+								del órden de gigaflops. Estos generalmente están basados en una arquitectura MIMD.</li>
+
+
+							<li><b>Grids: </b> Computadores de múltiples dominios administrativos conectados para solucionar una tarea determinada.</li>
+
+						</ul>
+					</p>
+				</div>
+				<div class="image">
+					<img src="images/distributed.gif" alt="" height="280" />
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="content">
+					<p>
+						<h3>Hibrido memoria distribuida-comopartida</h3>
+						<ul>
+							<li>Es la combinación entre memoria compartida y memoria distribuida, con sus ventajas en común.</li>
+
+							<li>Su principal ventaja es su escalabilidad.</li>
+
+							<li>Su principal desventaja es que la complejidad de programación aumenta.</li>
+						</ul>
+					</p>
+				</div>
+				<div class="image">
+					<img src="images/hybrid.gif" alt="" />
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="content">
+					<p>
+						<h3>Hilos</h3>
+						<ul>
+							<li>Un proceso pesado puede convertirse en varios procesos livianos ejecutados de manera concurrente.</li>
+
+							<li>Se pueden describir como una subrutina dentro del programa principal.</li>
+
+							<li>Se comunican entre ellos a través de la memoria global. </li>
+						</ul>
+					</p>
+				</div>
+				<div class="image">
+					<img src="images/threadsModel.gif" alt="" />
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="content">
+					<p>
+						<h3>Datos en paralelo</h3>
+						<ul>
+							<li>También conocido como PGAS (Partitioned Global Address Space)</li>
+
+							<li>Una serie de tareas trabajan de manera colectiva en la misma estructura de datos</li>
+
+							<li>Las tareas realizan la misma operación, pero cada una en su partición pero cada tarea trabaja en una partición diferente
+								de ésta </li>
+						</ul>
+					</p>
+				</div>
+				<div class="image">
+					<img src="images/data_parallel_model.gif" alt="" />
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<section id="eight" class="wrapper style2 alt">
+		<div class="inner">
+			<center><h2>Sincronización</h2></center>
+
+			<div class="transparent spotlight">
+				<div class="contentmo">
+					<img src="images/sync.gif" alt="" />
+				</div>
+				<div class="contentmo">
+					<ul class="checklist">
+						<li>Administrar la secuencia de trabajo y las tareas que lo realizan <b>es una consideración crítica del diseño</b> para la
+							mayoría de los programas paralelos.</li>
+						<li>Puede ser un factor significativo en el desempeño del programa, pues un diseño de sincronización adecuado
+							<b>reduce el tiempo overhead</b>.</li>
+						<li>A menudo requiere "serialización" de segmentos del programa.</li>
+					</ul>
+				</div>
+			</div>
+
+			<center><h3>Sincronización Mínima:</h3></center>
+			<div class="transparent spotlight">
+				<div class="contentmo">
+					<ol>
+						<li>Identificar suficiente concurrencia en la descomposición
+						del problema.</li>
+						<li>Decidir cómo manejarla: distribución estática o dinámica.</li>
+						<li>Determinar el grado de granularidad y cómo explotar la
+						concurrencia.</li>
+						<li>Reducir serialización y costes de sincronización. </li>
+					</ol>
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="contentmo">
+					<h4>1. Identificar suficiente concurrencia</h4>
+					<b>Paralelismo por Tareas:</b>
+					<ul>
+						<li>Grandes tareas (procedimientos) pueden realizarse en paralelo</li>
+						<li>No suele haber muchas tareas, no aumenta con el tamaño del problema</li>
+						<li>Dificultad para aplicar balanceo de carga</li>
+					</ul>
+				</div>
+				<div class="contentmo">
+					<b>Paralelismo por Datos:</b>
+					<ul>
+						<li>Más escalable, proporcional al tamaño del problema</li>
+						<li>Es factible aplicar balanceo de carga</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="contentmo">
+					<h4>2. Manejando concurrencia</h4>
+					<b>Técnicas estáticas:</b>
+					<ul>
+						<li>Asignación basada en la entrada</li>
+						<li>Bajo overhead</li>
+						<li>Siempre que sea posible, es preferible</li>
+					</ul>
+				</div>
+				<div class="contentmo">
+					<b>Técnicas dinámicas:</b>
+					<ul>
+						<li>Adapta el balanceo en tiempo de ejecución</li>
+						<li>Aumenta la comunicación y el overhead</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="contentmo">
+					<h4>3. Determinación de la granularidad</h4>
+					<p>
+						<b>Grano grueso:</b> pocas oportunidades de balanceo de carga.
+						<b>Grano fino:</b> mayor overhead, mayor comunicación, más sincronización.
+					</p>
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="contentmo">
+					<h4>4. Reducir la serialización</h4>
+					<b>Sincronización de eventos:</b>
+					<ul>
+						<li>Global versus punto a punto</li>
+						<li>Sincronización a bajo nivel produce mayor cantidad de sincronizaciones</li>
+					</ul>
+				</div>
+				<div class="contentmo">
+					<b>Exclusión mutua:</b>
+					<ul>
+						<li>Regiones críticas pequeñas</li>
+						<li>Dispersar las regiones críticas en el tiempo</li>
+					</ul>
+				</div>
+			</div>
+
+			<center><h3>Tipos de sincronización:</h3></center>
+			<div class="spotlight">
+				<div class="contentmo">
+					<p class="pjustify">
+						<h4> Barrier</h4>
+						<ul>
+							<li>Todas las tareas están involucradas</li>
+							<li>Cada tarea realiza su trabajo hasta que alcanza la barrera. Después, se detiene o "bloquea".</li>
+							<li>Cuando la última tarea llega a la barrera, todas las tareas se sincronizan.</li>
+						</ul>
+						Lo que sucede a partir de aquí varía. Algunas veces, una sección del código debe ser ejecutada en serie. En otros
+						casos, las tareas se liberan automáticamente para continuar su trabajo.
+					</p>
+				</div>
+				<div class="contentmo">
+					<img src="images/mutex.png" alt="" />
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="contentmo">
+					<p>
+						<h4>Lock / semaphore</h4>
+						<ul>
+							<li>Puede involucrar cualquier número de tareas</li>
+							<li>Se utiliza para serializar el acceso a datos globales o a una sección de código. Sólo una tarea a la vez se puede
+								ejecutar.
+							</li>
+							<li>La primera tarea en llegar al lock "lo bloquea". Esta tarea puede acceder de forma segura (en serie) a los datos
+								protegidos o al código.</li>
+							<li>Otras tareas pueden intentar adquirir el lock pero deben esperar hasta que la tarea que posee el bloqueo lo libere.</li>
+						</ul>
+					</p>
+				</div>
+				<div class="contentmo">
+					<img src="images/semaphore.png" alt="" />
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="contentmo">
+					<p>
+						<h4>Operaciones de comunicación sincrónica</h4>
+						<ul>
+							<li>Incluye sólo aquellas tareas que ejecutan una operación de comunicación</li>
+							<li>Cuando una tarea realiza una operación de comunicación, se requiere alguna forma de coordinación con las otras tareas
+								que participan en la comunicación. </li>
+							<li>Antes de que una tarea pueda realizar una operación de envío, primero debe recibir un aviso del receptor sobre
+								si está disponible para enviar.</li>
+						</ul>
+					</p>
+				</div>
+				<div class="contentmo">
+					<p class="pjustify">Se utilizan las funciones <b>send</b> y <b>recieve</b> para coordinar las acciones.</p>
+					<img src="images/sender.jpg" alt="" />
+					<p class="pjustify">Un ejemplo que ilustra esta técnica es el <b>handshake</b> que establece la comunicación usando el protocolo http.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="nine" class="wrapper style2 alt">
+		<div class="inner">
+			<div class="spotlight">
+				<div class="content">
+					<b>Asignación de trabajo dinámico</b>
+					<p class="pjustify">Ciertas clases de problemas producen desequilibrios de carga incluso si los datos están distribuidos uniformemente
+						entre las tareas</p>
+					<ul>
+						<li>Cuando la cantidad de trabajo que realiza cada tarea es variable o no se puede predecir, puede ser útil usar un planificador
+							- task pool approach. Cuando cada tarea termina su trabajo, espera en una cola para obtener una nueva pieza de trabajo.</li>
+
+						<li>Puede ser necesario diseñar un algoritmo que detecte y maneje desequilibrios de carga como ocurren dinámicamente dentro
+							del código.</li>
+					</ul>
+					</p>
+				</div>
+				<div class="image">
+					<img src="images/balancer.gif" alt="" />
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!--APORTES MIGUEL CORTES -OSMAR CASTILLO-->
+
+	<section id="seventeen" class="wrapper alt">
+		<center><h2>Paralelismo automatico vs manual</h2></center>
+		<div class="inner split">
+			<section>
+				<h3>Paralelismo automatico</h3>
+				<ul>
+					<li>El compilador analiza el codigo fuente e identifica oportunidades de paralelismo</li>
+					<li>Los ciclos son los objetivos mas frecuentes para una paralelizacion automatica</li>
+					<li>El analisis incluye identificar inhibidores al paralelismo y posiblemente un costo en, si el paralelismo puede o no mejorar el rendimiento</li>
+				<li>un ejemplo de este tipo puede ser OpenMP</li>
+				</ul>
+
+			</section>
+			<section>
+
+				<h3>Paralelismo manual</h3>
+				<ul>
+					<li>
+						Usando las directivas del compilador el programador explicitamente le dice al compilador como quiere paralelizar el codigo
+					</li>
+					<li>Se puede usar o complementar en algun grado con paralelizacion automatica</li>
+				</ul>
+
+			</section>
+		</div>
+
+	</section>
+
+	<section id="fourteen" class="wrapper style2 alt">
+			<div class="inner">
+				<div class="spotlight">
+					<div class="content">
+						<h2>Medidas de rendimiento</h2>
+						<h3>Tiempo de respuesta</h3>
+
+						<p class="pjustify">
+							Es el tiempo que tarda en ejecucion el programa A.
+						</p>
+
+					</div>
+					<div class="image">
+						<img src="images/formula1.png" alt="" width="140" />
+					</div>
+
+				</div>
+				<div class="spotlight">
+					<div class="content">
+
+						<h3>MIPS - MFLOPS</h3>
+						<p class="pjustify">
+							MIPS - Millones de operaciones por segundo. MFLOPS - Millones de operaciones de punto flotante por segundo.
+						</p>
+
+					</div>
+
+					<div class="image">
+						<img src="images/formula2.png" alt="" width="140" />
+					</div>
+				</div>
+
+				<div class="spotlight">
+					<div class="content">
+
+						<h3>Eficiencia</h3>
+						<p class="pjustify">
+							La eficiencia del programa se mide en el costo de ejecucion.
+						</p>
+
+					</div>
+
+					<div class="image">
+						<img src="images/formula3.png" alt="" width="140" />
+					</div>
+				</div>
+			</div>
+		</section>
+
+	<section id="fifteen" class="wrapper style2 alt">
+		<div class="inner">
+			<div class="spotlight">
+				<div class="contentmo2">
+					<h2>Lenguajes de programación</h2>
+					<p class="pjustify">
+						Las herramientas de programación paralela son: lenguajes, API, frameworks y otras herramientas que permiten aprovechar el potencial del hardware de forma paralela.  Sin embargo, la 
+						paralelización automática de un programa secuencial sigue siendo un problema a resolver a pesar de los muchos esfuerzos que se han hecho en los últimos 40 años. Los principales lenguajes
+						de programación en paralelo permanecen explicitamente paralelos o parcialmente implícitos: un programador le da al compilador directivas de paralelización. Existen pocos lenguajes de programación
+						paralelos totalmente implícitos: SISAL, Parallel Haskell, y (para FPGAs) Mitrion C. 
+					</p>
+					<h3>Niveles de los modelos de programación paralela</h3>
+					<p class="pjustify">
+						Los lenguajes de programación paralelos en general se pueden agrupar en niveles de acuerdo con la arquitectura subyacente, el nivel de paralelización y el esfuerzo realizado por el programador para 
+						lograr dicho nivel.  
+					</p>
+					<div class="imagen">
+						<img src="images/nivelesprogramacionparalela.png" alt="" />
+					</div>
+					<p>
+						En donde: 
+					</p>
+						<ol type="a">
+							<li>
+								El nivel de abstracción de la programación paralela es el más alto y el modelo mantiene toda la complejidad del paralelismo a nivel de hardware. 
+								El modelo demanda el mínimo esfuerzo en términos de programación y el paralelismo se limita específicamente al que introduce el hardware, por ejemplo en 
+								ejecución superescalar y SMT( Simultaneous Multithreading).
+							</li>
+							<li>
+								En este nivel, igualmente el esfuerzo requerido por el programador es mínimo y el paralelismo se gana gracias al compilador y las interfaces con el mismo.  Este 
+								modelo es usado generalmente cuando los programas son restructurados y recompilados para mejorar su desempeño por medio de paralelismo.
+							</li>
+							<li>
+								En este nivel, el esfuerzo requerido por el programador es un poco mayor, pero se dispone de herramientas de más alto nivel para mejorar el desempeño.
+								Este modelo es usado por ejemplo en GPGPU (General-purpose computing on graphics processing units) especialmente en dispositivos móbiles.
+							</li>
+							<li>
+								Este es el nivel de programación paralela más poderoso.  Hace énfasis en el control del programador sobre el hardware explotando
+								su uso de forma eficiente mediante librerías y herramientas de alto nivel. En este nivel se encuentran aplicaciones implementadas con librerías de MPI, CUDA, POSIX y OPENMP entre otros.
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+			<div class="inner">
+				<div class="spotlight">
+					<div class="contentmo2">
+					<h2>Modelos de programación paralela</h2>
+					<p>
+						En la actualidad existen diversos modelos de programación paralela, ellos se agrupan de acuerdo a: el método de comunicación entre los diferentes elementos de cómputo, 
+						los mecanismos de acceso a la memoria de datos del programa, la forma de gestionar las ejecución de las tareas y más recientemente de acuerdo con la heterogeneidad del hardware 
+						sobre el cual pueden ser implementados.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="inner">
+			<div class="spotlight">
+				<div class="contentmo2">
+					<h3>Modelo de intercambio de mensajes</h3>
+					<div class="imagen">
+						<img src="images/animationmpi.gif" alt="MPI" />
+					</div>
+					<p>
+						En el modelo de intercambio de mensajes el algoritmo es dividido en piezas que serán procesadas dentro de un cluster (región) de nodos (CPUs) que están conectados por un 
+						bus de intercomunicación.  La sincronización de los procesos ocurre por intercambio de mensajes entre los nodos. En cada CPU la memoria es compartida y cada núcleo se hace cargo 
+						de un proceso. Usualmente es utilizado para ejecutar muchas veces el mismo proceso con la misma distribución de procesamiento por cluster. 
+					</p>
+					<p>
+						El usuario escribirá su aplicación como un proceso secuencial del que se lanzarán varias instancias que cooperan entre sí.  A pesar que se comparte localmente la memoria, 
+						es considerado un modelo de memoria distribuida debido a que cada nodo dispone de su propia memoria local.
+					</p>
+					<p>
+						La aplicación más representativa de este modelo es MPI.
+					</p>
+													
+				</div>
+			</div>
+		</div>
+					<div class="inner">
+						<div class="spotlight">
+							<div class="contentmo2">					
+								
+								<a href="https://www.mpi-forum.org/">
+								<img src="images/mpi.png" alt="mpi-forum" width="100"  />
+								<h4>MPI (Message Passing Interface) </h4>
+								</a>
+								<p>
+									MPI es una librería estándar para ser usada en programas que aprovechen arquitecturas de múltiples procesadores.  Fue desarrollada por el Centro de investigación en Computación paralela en
+									Williamsbrug, y publicada en Noviembre de 1993, año en el que nace el foro que actualmente se encarga de su mantenimiento y evolución. Sus lenguajes de especificación son C , C++ y Fortran. 
+									Existen implementaciones para Python, Ocalm, Java, .NET y PHP.  
+								</p>
+								<p>
+									<b>Ventajas: </b>Estandarización y eficiencia en el traspaso de mensajes, portabilidad, y disponibilidad en varios lenguajes de programación. 
+								</p>
+								<p>
+									<b>Desventajas: </b>  Posibles latencias del bus de intercomunicación, la dificultad en la sincronización entre tareas. 
+								</p>
+								<a href="https://github.com/mpi-forum/">
+									<img src="images/github.png" alt="github" width="40" height="40" class="imagen" />
+								</a>
+
+				</div>
+			</div>
+		</div>
+		<div class="inner">
+			<div class="spotlight">
+				<div class="contentmo2">
+					<h3>Modelo de programación por hilos</h3>
+					<div class="imagen">
+						<img src="images/animationthreads.gif" alt="threadsModel" />
+					</div>
+					<p>
+						Este modelo busca la ejecución de múltiples tareas simultáneamente.  Es un modelo de memoria compartida. Su estructura base es un hilo el cual es una unidad de ejecución 
+						que contiene instrucciones de un programa y la estructura de memoria necesaria para su ejecución independiente.  La aplicación precursora de este modelo es POSIX Threads.						
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="inner">
+		<div class="spotlight">
+			<div class="contentmo2">
+					<h4>POSIX Threads (Portable operating system interface for Linux) </h4>
+					<p>
+						Posix es una librería para sistemas operativos. Es el estándar de IEEE 1003.1 Fue creada en 1995 para Linux, y ha tenido varias actualizaciones, 
+						la versión actual es la del 2017, pero existen unas especificaciones del Open Group actualizadas en el año 20018.  
+						Su especificación fue realizada en ANSI C y lenguaje ensamblador. Ha tenido implementaciones en otros sistemas operativos como Mac OS, Solaris y Windows
+						 (mediante la instalación de aplicaciones adicionales).
+					</p>
+					<p><b>Ventajas: </b> Estandarización y eficiencia.</p>
+					<p><b>Desventajas: </b> complejidad en la sincronización entre tareas, algunas incompatibilidades dependiendo de la versión del sistema operativo.</p>
+				</div>
+			</div>
+		</div>
+		<div class="inner">
+			<div class="spotlight">
+				<div class="contentmo2">
+								
+					<a href="https://www.openmp.org/">
+						<img src="images/openmp.gif" alt="openmp" width="100"  />
+						<h4>OpemMP (Open multiprocessing) </h4>
+						</a>
+
+					<p>
+						OpenMP es una API para programación multiproceso de memoria compartida en múltiples plataformas que fue publicada por la Architecture Review Board en 1997. 
+						Su modelo de ejecución se basa en memoria compartida multihilos.   Se considera el sucesor más sofisticado de Posix Threads. Dispone de directivas que apoyan al programador para convertir
+						algoritmos secuenciales a paralelos de forma eficiente. Su especificiación fue realizada para lenguajes C, C++ y Fortran.  Funciona en la mayoría de las arquitecturas de procesador 
+						y sistemas operativos, incluyendo Solaris, AIX, HP - UX, Linux, Mac OS X, y las plataformas de Windows .
+					</p>
+					<a href="https://github.com/OpenMP">
+						<img src="images/github.png" alt="github" width="40" height="40" class="imagen" />
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="inner">
+			<div class="spotlight">
+				<div class="contentmo2">
+					<a href="https://software.intel.com/content/www/us/en/develop/tools/threading-building-blocks.html">
+						<img src="images/tbb.png" alt="tbb" width="200"  />
+						<h4>TBB (Threading building blocks) </h4>
+						</a>
+					<p>
+						TBB es una librería creada por Intel para que los programadores aprovechen al máximo el uso de los procesadores multinúcleo, es por ello que fue publicada en el año 2006 luego 
+						del lanzamiento del 1er procesador multinúcleo.  En el 2007 Intel decidió ofrecer sus herramientas básicas como código abierto, sin embargo muchas de sus funcionalidades más interesantes
+						 se encuentran bajo licencia comercial. Su lenguaje de especificación es C++, y se trata de un modelo de memoria compartida que implementó el concepto de work-steal.					
+					</p>
+					<div class="imagen">
+						<img src="images/animationworksteal.gif" alt="work-steal" />
+					</div>
+					<p>
+						El modelo de TBB consiste en un organizador de las tareas que se encarga de distribuir la carga entre los distintos workers,  cada worker o trabajador tiene una fila de tareas 
+						que debe ejecutar, sin embargo en caso de que algún núcleo termine antes, buscará a otro worker que tenga tareas pendientes por ejecutar y le robará la tarea más antigua para 
+						ayudarle con su carga y así hacer más eficiente el desempeño global del algoritmo.
+					</p>
+					<a href="https://github.com/oneapi-src/oneTBB">
+						<img src="images/github.png" alt="github" width="40" height="40" class="imagen" />
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="inner">
+			<div class="spotlight">
+				<div class="contentmo2">
+					<h3>Modelos heterogéneos  </h3>
+					<p>Durante las últimas dos décadas los servidores, computadoras personales y PMD que utilizan tanto CPU como GPU se han vuelto más comunes en la industria del hardware. La aparición de estos
+						equipos con tecnologías heterogéneas de procesamiento ha promovido un nuevo modelo de programación paralela: modelo de programación heterogéneo. En este entorno, el modelo de programación 
+						intenta aprovechar al máximo los recursos de cálculo del sistema disponibles mediante el uso de API y herramientas funcionales sin la necesidad de abordar paradigmas específicos de hardware
+						 (para CPU ó para GPU) o las limitantes de desempeño computacional entre ellos.  En este tipo de modelos, los cálculos son gestionados por un procesador host que provee control sobre otros equipos 
+						 computacionales (CPU/GPU).  La programación paralela es realizada usando programas kernel los cuales implementan la funcionalidad que será ejecutada por los devices (equipos computacionales).
+					</p>
+					<p>
+						El framework más representativo de este modelo es OpenCL.
+					</p>
+					<div class="imagen">
+						<img src="images/modeloheterogeneo" alt="" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="inner">
+			<div class="spotlight">
+				<div class="contentmo2">
+					<a href="https://www.khronos.org/opencl/">
+						<img src="images/opencllogo.png" alt="opencl" width="200"  />
+						<h4>OpenCL (Open computing language) </h4>
+						</a>
+					<p>
+						OpenCL es una API con lenguaje de programación propio llamado OpenCL C. Fue creada para fabricantes de hardware por Apple y desarrollada en conjunto con INTEL, IBM, NVIDIA y AMD. 
+						En el 2008 pasó al grupo Kronos para convertirse en estándar abierto.  En ese momento se retiran Intel  y NVIDIA e implementan sus propios entornos de desarrollo. 
+						Su especificación está basada en C y C++. Ha sido implementada para hardware heterogéneo: CPU, GPU, DSP, FPGA, ASIC. Como otros frameworks permite aprovechar el enorme potencial 
+						de la computación paralela y como ventaja lo ofrece de manera abierta y gratuita.  Sin embargo y debido a que está implementado para distintos tipos de equipo, 
+						su interfaz y configuración se hace más compleja que aquellos que usan un único tipo de dispositivo.
+				
+					</p>
+					<a href="https://github.com/KhronosGroup/OpenCL-Docs">
+						<img src="images/github.png" alt="github" width="40" height="40" class="imagen" />
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="inner">
+			<div class="spotlight">
+				<div class="contentmo2">
+					<a href="https://developer.nvidia.com/cuda-zone/">
+						<img src="images/cudalogo.png" alt="CUDA" width="200"  />
+						<h4>CUDA (Compute Unified Device Architecture)</h4>
+						</a>
+					<p>
+						CUDA es una API de computación en paralelo, que incluye un compilador y una serie de herramientas de desarrollo creadas por NVIDIA para implementar algoritmos en sus GPU. Permite programador
+						mediante una variación del lenguaje de programación C.  Mediante wrapers se puede usar en C/C++, Java y Fortran y existen múltiples aplicaciones en Python. 
+						CUDA intenta aprovechar el gran paralelismo, y el alto ancho de banda de la memoria en las GPU en aplicaciones con un gran coste aritmético frente a realizar numerosos accesos a memoria principal, lo que podría actuar de cuello de botella.
+						
+						
+
+				
+					</p>
+					<a href="https://github.com/NVIDIA/cuda-samples">
+						<img src="images/github.png" alt="github" width="40" height="40" class="imagen" />
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="inner">
+			<div class="spotlight">
+				<div class="contentmo2">
+					<h2>¿Cuál modelo seleccionar?</h2>
+					<p>
+							Seleccionar el mejor modelo de programación paralela dependerá del tipo de tarea a ejecutar, el dominio del negocio y la aplicación que necesitamos implementar.  Por ejemplo, si se intenta
+							realizar una implementación en donde los datos requeridos para el algoritmo son muy grandes, en primera instancia se podría pensar en un modelo de memoria distribuida, en donde de ser necesario
+							se distribuye el procesamiento de los datos en varios nodos y se usa el modelo MPI para la implementación.  Sin embargo, si por ejemplo se tiene un algoritmo secuencial que ya está funcionando y 
+							lo que queremos es hacerlo más eficiente aprovechando un nuevo hardware y también sabemos que el requerimiento de memoria no es muy alto , se podría pensar en el uso de OpenMP pues además
+							 incluye directivas que ayudan en la paralelización del algoritmo.  También se puede pensar en darle solución a la necesidad mediante un sistema híbrido por ejemplo: MPI +  OpenMP. </p>
+					<p>		
+							Sin embargo, siempre se debe tener en cuenta que el modelo seleccionado debería cumplir las siguientes propiedades:
+					</p>
+					<div class="imagemo">
+							<img src="images/seleccionmodelo.PNG" alt="" />
+					</div>
+
+					<h5>
+						Desempeño:
+					</h5>
+					<p> 
+						El desempeño del modelo debe ser predecible, aún si se escala a sistemas más grandes.
+					</p>
+					<h5>
+						Productividad:
+					</h5>
+					<p> 
+						El modelo debería disponer de herramientas que le permitan monitorear y ajustar su desempeño y debe 
+						contener las librerías y herramientas suficientes para  realizar las implementaciones de forma fácil y eficiente.
+					</p>
+					<h5>
+						Portabilidad:
+					</h5>
+					<p> El modelo debe ser escalable a otros sistemas de hardware actuales y futuros.
+					</p>	
+				</div>
+			</div>
+		</div>
+
+			<div class="inner">
+				<div class="spotlight">
+					<div class="contentmo2">
+						<h3>Clasificación de las herramientas de programación paralela</h3>
+
+						<div class="imagemo">
+							<img src="images/Biblioteca.png" alt="" />
+						</div>
+						<div class="imagemo">
+							<img src="images/API.png" alt="" />
+						</div>
+						<div class="imagemo">
+							<img src="images/Lenguajes.png" alt="" />
+						</div>
+				</div>
+				</div>
+			</div>
+			<div class="inner">
+				<div class="spotlight">
+					<div class="contentmo2">
+						<h3>Lenguajes que integran el paradigma</h3>
+						<p class="pjustify">
+						Actualmente, existe una variedad de lenguajes de programación con un enfoque multiparadigma, los cuales
+						permiten tener flexibilidad a la hora de querer lograr un objetivo, en cuanto a programación. Igualmente,
+						los lenguajes suelen complementar dicho comportamiento con librerías, APIs o frameworks (ya sean comunitarios
+						o privativos), los cuales le permiten al programador el disponer de herramientas de trabajo. 
+					</p>
+					<p class="pjustify">
+						El paradigma paralelo es implementado, en la mayoría de los lenguajes más conocidos actualmente, a través
+						de dichas herramientas. En la tabla, se hace un recuento de herramientas específicas de algunos de esos lenguajes,
+						mencionando que no son las únicas que existen. 
+					</p>
+			
+					<table border="1" style="border-collapse: collapse; width: 100%; height: 216px;">
+						<tbody>
+						<tr style="height: 18px;">
+						<td style="width: 50%; height: 18px;"><b>Lenguaje</b></td>
+						<td style="width: 50%; height: 18px;"><b>Implementaci&oacute;n</b></td>
+						</tr>
+						<tr style="height: 18px;">
+						<td style="width: 50%; height: 18px;">C</td>
+						<td style="width: 50%; height: 18px;"><a href="https://pubs.opengroup.org/onlinepubs/9695969399/toc.pdf">Posix</a>, <a href="https://github.com/mpitutorial/mpitutorial">MPI</a>, <a href="https://github.com/OpenMP/sources/blob/main/stubs/stubs.c">OpenMp</a></td>
+						</tr>
+						<tr style="height: 18px;">
+						<td style="width: 50%; height: 18px;"><a href="https://isocpp.org/std/the-standard">C++</a></td>
+						<td style="width: 50%; height: 18px;">
+						<p><a href="https://en.wikipedia.org/wiki/Rogue_Wave_Software">Rogue Wave</a>, <a href="https://en.wikipedia.org/wiki/Boost_(C%2B%2B_libraries)">Boost</a>, <a href="https://en.wikipedia.org/wiki/C%2B%2B_Standard_Library">Thread</a>, <a href="https://en.wikipedia.org/wiki/Dlib">Dlib</a>, <a href="https://en.wikipedia.org/wiki/OpenMP">OpenMP</a>, <a href="https://en.wikipedia.org/wiki/OpenThreads">OpenThreads</a>, <a href="https://en.wikipedia.org/wiki/Parallel_Patterns_Library">Parallel Patterns Library</a>, <a href="https://en.wikipedia.org/wiki/POCO_C%2B%2B_Libraries">POCO C++ Libraries</a>, <a href="https://en.wikipedia.org/wiki/POSIX_Threads">POSIX Threads</a>, <a href="https://en.wikipedia.org/wiki/Qt_(software)">Qt</a>&nbsp;Qthread, <a href="https://en.wikipedia.org/wiki/Stapl">Stapl</a>, <a href="https://en.wikipedia.org/wiki/Threading_Building_Blocks">TBB</a>, <a href="https://en.wikipedia.org/wiki/Integrated_Performance_Primitives">IPP</a></p>
+						</td>
+						</tr>
+						<tr style="height: 18px;">
+						<td style="width: 50%; height: 18px;">C#</td>
+						<td style="width: 50%; height: 18px;"><a href="https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-parallel-library-tpl">Task</a> <a href="https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-parallel-library-tpl">Parallel</a><a href="https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-parallel-library-tpl"> Library</a>. <a href="https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/introduction-to-plinq">Parallel</a> <a href="https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/introduction-to-plinq">Query</a><a href="https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/introduction-to-plinq"> PLINQ</a>,</td>
+						</tr>
+						<tr style="height: 18px;">
+						<td style="width: 50%; height: 18px;"><a href="http://fortranwiki.org/fortran/show/Parallelization">Fortran</a></td>
+						<td style="width: 50%; height: 18px;"><a href="https://en.wikipedia.org/wiki/Coarray_Fortran">Co-arrays</a>, <a href="http://www.mpi-forum.org/">MPI</a>, <a href="http://www.mcs.anl.gov/research/projects/mpich2/about/index.php?s=about">MPICH</a>, <a href="http://www.open-mpi.org/">OpenMPI</a>, <a href="http://fortranwiki.org/fortran/show/OpenMP">OpenMP</a>,<a href="http://openmp.org/wp/">OMP</a>, <a href="http://www.scai.fraunhofer.de/EP-CACHE/adaptor/www/adaptor_home.html">ADAPTOR</a>, <a href="http://www.pgroup.com/resources/cudafortran.htm">PGI CUDA Fortran </a><a href="http://www.pgroup.com/resources/cudafortran.htm">compiler</a>, <a href="http://www.cri.ensmp.fr/pips/">PIPS</a>.</td>
+						</tr>
+						<tr style="height: 18px;">
+						<td style="width: 50%; height: 18px;">Go</td>
+						<td style="width: 50%; height: 18px;">
+						<p><a href="https://www.golang-book.com/books/intro/10">Goroutines</a><a href="https://www.golang-book.com/books/intro/10"> y </a><a href="https://www.golang-book.com/books/intro/10">channels</a></p>
+						</td>
+						</tr>
+						<tr style="height: 18px;">
+						<td style="width: 50%; height: 18px;">Java</td>
+						<td style="width: 50%; height: 18px;">Clase <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Thread.html">Thread</a> (interfaz&nbsp;<b><i>Runnable</i></b>)</td>
+						</tr>
+						<tr style="height: 18px;">
+						<td style="width: 50%; height: 18px;">Javascript</td>
+						<td style="width: 50%; height: 18px;"><a href="https://github.com/parallel-js">Parallel</a><a href="https://github.com/parallel-js"> JS</a>&nbsp;(usando web workers)</td>
+						</tr>
+						<tr style="height: 18px;">
+						<td style="width: 50%; height: 18px;"><a href="https://docs.julialang.org/en/v1/manual/parallel-computing/">Julia</a></td>
+						<td style="width: 50%; height: 18px;"><a href="https://docs.julialang.org/en/v1/manual/asynchronous-programming/">Tareas as&iacute;ncronas</a>, <a href="https://docs.julialang.org/en/v1/manual/multi-threading/">Multihilos</a>, <a href="https://docs.julialang.org/en/v1/manual/distributed-computing/">computaci&oacute;n distribuida</a></td>
+						</tr>
+						<tr style="height: 18px;">
+						<td style="width: 50%; height: 18px;">Matlab</td>
+						<td style="width: 50%; height: 18px;"><a href="https://www.mathworks.com/help/parallel-computing/">Parallel</a> <a href="https://www.mathworks.com/help/parallel-computing/">computing</a> <a href="https://www.mathworks.com/help/parallel-computing/">toolbox</a></td>
+						</tr>
+						<tr style="height: 18px;">
+						<td style="width: 50%; height: 18px;">Python</td>
+						<td style="width: 50%; height: 18px;"><a href="https://wiki.python.org/moin/ParallelProcessing">M&uacute;ltiples librer&iacute;as</a></td>
+						</tr>
+						<tr style="height: 18px;">
+						<td style="width: 50%; height: 18px;">Ruby</td>
+						<td style="width: 50%; height: 18px;"><a href="https://rubygems.org/gems/parallel/versions/1.20.1">Gem </a><a href="https://rubygems.org/gems/parallel/versions/1.20.1">Parallel</a></td>
+						</tr>
+						</tbody>
+						</table>
+					</div>	
+				</div>		
+			</div>
+		</div>
+	</section>
+
+	<section id="sixteen" class="wrapper style2 alt">
+		<div class="inner">
+			<div class="spotlight">
+
+				<div class="content">
+					<h2>Aplicaciones</h2>
+					<b>Computación grafica</b>
+					<p class="pjustify">
+						Ciertas clases de problemas producen desequilibrios de carga incluso si los datos están distribuidos uniformemente
+						entre las tareas
+					</p>
+					</p>
+				</div>
+				<div class="image">
+					<iframe width="450" height="315" src="https://www.youtube.com/embed/-P28LKWTzrI" frameborder="0" allowfullscreen></iframe>
+				</div>
+
+			</div>
+			<div class="spotlight">
+				<div class="image">
+					<img src="images/LHC.jpg" alt="" />
+				</div>
+				<div class="content">
+					<h2>Aproximación y cálculo de constantes y/o funciones numéricas.</h2>
+					<p class="pjustify">
+						Worldwide LHC Computing Grid (WLCG) es una colaboración global de centros de computación. Fue lanzado en 2002 para
+						proporcionar un recurso para almacenar, distribuir y analizar los 15 petabytes (15 millones de gigabytes) de datos
+						generados cada año por el Large Hadron Collider (LHC).
+					</p>
+				</div>
+			</div>
+
+			<div class="spotlight">
+
+				<div class="content">
+					<h2>Predicción del clima y cambio climático</h2>
+					<p class="pjustify"> 
+						Uno de los primeros usos exitosos de la computación paralela fue la predicción del tiempo. La información, como la
+						temperatura, la humedad y las precipitaciones, se ha recolectado y utilizado para predecir el clima durante más de
+						500 años. En 1904, el físico y meteorólogo noruego Vilhelm Bjerknes propuso un modelo de ecuaciones diferenciales
+						para la predicción meteorológica que incluía siete variables, incluyendo temperatura, lluvia y humedad.
+					</p>
+				</div>
+
+				<div class="image">
+					<img src="images/NOAA.png" alt="" />
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="image">
+					<img src="images/multi.jpg" alt="" />
+				</div>
+				<div class="content">
+					<h2>Análisis de imágenes multiespectro</h2>
+					<p class="pjustify">
+						Las imágenes satelitales consisten en grandes cantidades de datos. Por ejemplo, las imágenes Landsat 7 consta de siete
+						tablas de datos, donde cada entrada en una tabla representa una longitud de onda magnética diferente (azul, verde,
+						rojo o infrarrojo térmico) para un píxel de 30 metros cuadrados de la superficie de la Tierra.
+					</p>
+				</div>
+			</div>
+
+			<div class="spotlight">
+
+				<div class="content">
+					<h2>Astronomía</h2>
+					<p class="pjustify"> 
+						Hay muchas aplicaciones de los supercomputadores a la astronomía, incluyendo el uso de un supercomputador para simular
+						eventos en el futuro, o pasado, para probar teorías astronómicas. La Universidad de Minnesota Supercomputer Center
+						simuló lo que una explosión de supernova que se origina en el borde de una gigantesca nube de gas molecular interestelar
+						parecería 650 años después de la explosión.
+					</p>
+				</div>
+
+				<div class="image">
+					<img src="images/astronomia.png" alt="" />
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="image">
+					<img src="images/render.png" alt="" />
+				</div>
+				<div class="content">
+					<h2>Renderizado de imagenes y animación</h2>
+					<p> </p>
+
+					</p>
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="content">
+					<h2>Diagnóstico de enfermedades mentales</h2>
+					<p class="pjustify">
+						El proyecto RePhrase incluido en el programa Horizonte 2020 de la UE tuvo como objetivo trabajar 
+						en la mejora del desarrollo de software para arquitecturas paralelas y heterogéneas. Los resultados 
+						de esta investigación encontraron aplicación en diversos campos, como en la mejora de procesos industriales 
+						de fabricación, la monitorización del tráfico ferroviario y la optimización de aplicaciones para el diagnóstico 
+						de enfermedades mentales. Este último consistía en el procesamiento por computador de imágenes capturadas mediante 
+						resonancia magnética del cerebro, con el objetivo de conseguir diagnósticos más rápidos en el caso de enfermedades 
+						como la la esquizofrenia, el trastorno bipolar o la depresión.
+					</p>
+				</div>
+
+				<div class="image">
+					<img src="images/biomedicas.jpg" alt="" />
+				</div>
+			</div>
+
+			<div class="spotlight">
+				<div class="image">
+					<br/>
+					<center><h3>Otras tendencias en la computación paralela</h3></center>
+					<img src="images/trends.jpg" alt="" />
+					<br/>
+				</div>
+				<div class="content">
+					<p class="pjustify">
+						<ul>
+							<li>Reducción en  los tiempos de comunicaciones en las arquitecturas</li>
+							<li>Software de desarrollo más sencillo para clústeres</li>
+							<li>Sistema híbridos en múltiples plataformas</li>
+							<li>Confiabilidad y tolerancia a fallos</li>
+							<li>Computación en la nube</li>
+							<li>Unificación o integración de APIs</li>
+							<li>Producción de software que haga transparente la programación en sistemas híbridos</li>
+						</ul>
+					</p>
+				</div>
+			</div>
+			
+
+		</div>
+	</section>
+	<!--FIN APORTES MIGUEL CORTES -OSMAR CASTILLO-->
+
+	<section id="poxis" class="wrapper style2 alt">
+		<font size=7>Ejemplos</font>
+		<div class="inner">
+			<div class="spotlight">
+				<div class="content">
+					<h2>Hilos POSIX</h2>
+					<p>
+						Para empezar, POSIX significa Portable Operating System Interface. Está compuesto por una serie de estándares especificados por IEEE para promover la interoperabilidad de los sistemas operativos. Además, POSIX establece reglas para la portabilidad de programas.
+					</p>
+					<p>
+						Los Hilos POSIX, generalmente denominados pthreads, es un modelo de ejecución independiente del lenguaje, así como un modelo de ejecución paralelo. Permite que un programa controle múltiples flujos de trabajo diferentes que se superponen en el tiempo. Cada flujo de trabajo se denomina subproceso, y la creación y el control de estos flujos se logra haciendo llamadas a la API de subprocesos POSIX. Los Hilos POSIX son una API definida por el estándar POSIX.1c, extensiones de Threads ( IEEE Std 1003.1c-1995). [25]
+					</p>
+
+				</div>
+
+
+				<b>"Hello World!" de Hilos POSIX en C++. [26]</b>
+				<pre>
+
+						<code>
+#include &#60iostream>
+#include &#60cstdlib>
+#include &#60pthread.h>
+using namespace std;
+#define NUM_THREADS 3
+
+void *PrintHello(void *threadid) {
+   long tid;
+   tid = (long)threadid;
+   cout << "Hello World! Thread ID, " << tid << endl;
+   pthread_exit(NULL);
+}
+
+int main () {
+   pthread_t threads[NUM_THREADS];
+   int rc;
+   int i;
+   for( i = 0; i < NUM_THREADS; i++ ) {
+      cout << "main() : creating thread, " << i << endl;
+      rc = pthread_create(&threads[i], NULL, PrintHello, (void *)i);
+      if (rc) {
+         cout << "Error:unable to create thread," << rc << endl;
+         exit(-1);
+      }
+   }
+   pthread_exit(NULL);
+}
+						</code>
+					<code>
+Salida:
+main() : creating thread, 0
+main() : creating thread, 1
+main() : creating thread, 2
+Hello World! Thread ID, 0
+Hello World! Thread ID, 2
+Hello World! Thread ID, 1
+					</code>
+					</pre>
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<section id="ten" class="wrapper style2 alt">
+		<div class="inner">
+			<div class="spotlight">
+				<div class="content">
+					<h2>OpenMP</h2>
+					<p>
+						Es una interfaz de programa de aplicación (API) que se puede utilizar para dirigir explícitamente paralelismo de memoria
+						compartida multi-procesos. Está compuesto por:
+						<ul>
+							<li>Directivas de compilación</li>
+							<li>Runtime Library Routines</li>
+							<li>Variables de entorno</li>
+						</ul>
+					</p>
+					<div class="image">
+						<img src="images/openmp.gif" alt="" />
+					</div>
+				</div>
+
+
+				<b>Estructura general de OpenMP en C++</b>
+				<pre>
+
+						<code>
+#include &#60omp.h>
+int main () {
+int var1, var2, var3;
+//Código en serie...
+
+//Comienzo de la región paralela hace fork del conjunto de threads
+#pragma omp parallel private(var1, var2) shared(var3)
+{
+	//Región paralela ejecutada por todos los threads
+	//otras directivas OpenMP
+	//Todos los threads se juntan en el thread master
+}
+//Continuación del código...
+}
+						</code>
+					</pre>
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<section id="nine4" class="wrapper style2 alt">
+		<div class="inner">
+			<div class="spotlight">
+				<div class="content">
+					<h3>Ejemplo región paralela</h3>
+					<pre>
+						<code>
+#include &#60omp.h>
+#include &#60stdio.h>
+int main(int argc, char *argv[])
+{
+	/* Cada thread tiene una variable id privada (tid) */
+	int nthreads, tid;
+
+	#pragma omp parallel private(tid)
+	{
+	/* Se asigna y se imprime el id de cada thread  */
+	tid = omp_get_thread_num();
+	printf("Hello World desde el thread = %d\n", tid);
+	/* Solo el thread master ejecuta lo siguiente */
+	if (tid == 0)
+	{
+		nthreads = omp_get_num_threads();
+		printf("El numero de threads es = %d\n", nthreads);
+	}
+	}
+}
+						</code>
+					</pre>
+				</div>
+				<div>
+					<ul>
+						<li>Un programa "Hello World" simple</li>
+						<li>Cada hilo ejecuta todo el código encerrado en la región paralela</li>
+						<li>Las rutinas de la biblioteca OpenMP se utilizan para obtener identificadores de subprocesos y número total de subprocesos</li>
+						<li>Output:
+							<br>World desde el thread = 2
+							<br>Hello World desde el thread = 1
+							<br>Hello World desde el thread = 4
+							<br>...
+							<br>El numero de threads es = x
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="nine1" class="wrapper style2 alt">
+		<div class="inner">
+			<div class="spotlight">
+				<div class="content">
+					<h3>Parallel For</h3>
+					<pre>
+						<code>
+#include &#60omp.h>
+#include &#60stdio.h>
+
+#define N       1000
+#define CHUNKSIZE   100
+
+int main(int argc, char *argv[])
+{
+
+	int i, chunk;
+	float a[N], b[N], c[N];
+
+	for (i=0; i < N; i++)
+	a[i] = b[i] = i * 1.0;
+	chunk = CHUNKSIZE;
+
+	#pragma omp parallel for \
+	shared(a,b,c,chunk) private(i) \
+	schedule(static,chunk)
+
+	for (i=0; i < N; i++)
+	c[i] = a[i] + b[i];
+}
+						</code>
+					</pre>
+				</div>
+				<div>
+					<ul>
+						<b>Programa simple de adición de vectores</b>
+						<li>Las matrices A, B, C y la variable N serán compartidas por todos los subprocesos.</li>
+						<li>Variable i será privada para cada hilo; Cada hilo tendrá su propia copia única.</li>
+						<li>Las iteraciones del bucle "For" se distribuirán dinámicamente en trozos de tamaño "CHUNK".</li>
+						<li>Los hilos no se sincronizarán al completar sus trabajos individuales (NOWAIT).</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="nine2" class="wrapper style2 alt">
+		<div class="inner">
+			<div class="spotlight">
+				<div class="content">
+					<h3>Sincronización en OpenMP</h3>
+					<pre>
+						<code>
+#include &#60omp.h>
+int main(int argc, char *argv[])
+{
+	int x;
+	x = 0;
+
+	#pragma omp parallel shared(x)
+	{
+	#pragma omp critical
+	x = x + 1;
+	}
+	/* Final de la región paralela */
+}
+						</code>
+					</pre>
+				</div>
+				<div>
+					<ul>
+						<b>Sincronización por medio del comando "critical"</b>
+						<li>El comando CRITICAL especifica una región de código que debe ser ejecutada por un solo hilo a la vez.</li>
+						<li>Si un subproceso está ejecutándose actualmente dentro de una región CRÍTICA y otro subproceso llega a esa región
+							CRÍTICA e intenta ejecutarla, se bloqueará hasta que el primer subproceso salga de esa región CRÍTICA.</li>
+						<li>todos los hilos del equipo intentarán ejecutarse en paralelo. Sin embargo, debido a la construcción CRÍTICA que rodea
+							el incremento de x, sólo un hilo podrá leer, incrementar o escribir x en cualquier momento</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="cuda" class="wrapper style2 alt">
+		<div class="inner">
+			<div class="spotlight">
+				<div class="content">
+					<h2>CUDA</h2>
+					<p>
+						CUDA son las siglas de Compute Unified Device Architecture (Arquitectura Unificada de Dispositivos de Cómputo) que hace referencia a una plataforma de computación en paralelo incluyendo un compilador y un conjunto de herramientas de desarrollo creadas por nVidia que permiten a los programadores usar una variación del lenguaje de programación C para codificar algoritmos en GPU de nVidia.[27]
+					</p>
+				</div>
+				<b>Hello World de CUDA. [28]</b>
+				<pre>
+
+						<code>
+#include&#60stdio.h>
+#include&#60stdlib.h>
+
+__global__ void print_from_gpu(void) {
+    printf("Hello World! from thread [%d,%d] \
+        From device\n", threadIdx.x,blockIdx.x);
+}
+
+int main(void) {
+    printf("Hello World from host!\n");
+    print_from_gpu<<<1,4>>>();
+    cudaDeviceSynchronize();
+    return 0;
+}
+						</code>
+					<code>
+Salida:
+Hello World from host!
+Hello World! from thread [3,0]
+Hello World! from thread [1,0]
+Hello World! from thread [0,0]
+Hello World! from thread [2,0]
+					</code>
+					</pre>
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<section id="nine3" class="wrapper style2 alt">
+		<div class="inner">
+			<div class="spotlight">
+				<div class="content">
+					<h3>Ejemplo de Programación Paralela en Java</h3>
+					<pre>
+						<code>
+public class CajeraThread extends Thread {
+	private String nombre;
+	private Cliente cliente;
+	private long initialTime;
+	// Constructor, getter & setter
+
+	@Override
+	public void run() {
+		System.out.println("La cajera " + this.nombre + " COMIENZA A PROCESAR LA COMPRA DEL CLIENTE "
+					+ this.cliente.getNombre() + " EN EL TIEMPO: "
+					+ (System.currentTimeMillis() - this.initialTime) / 1000
+					+ "seg");
+		for (int i = 0; i < this.cliente.getCarroCompra().length; i++) {
+			this.esperarXsegundos(cliente.getCarroCompra()[i]);
+			System.out.println("Procesado el producto " + (i + 1)
+			+ " del cliente " + this.cliente.getNombre() + "->Tiempo: "
+			+ (System.currentTimeMillis() - this.initialTime) / 1000
+			+ "seg");
+		}
+		System.out.println("La cajera " + this.nombre + " HA TERMINADO DE PROCESAR "
+						+ this.cliente.getNombre() + " EN EL TIEMPO: "
+						+ (System.currentTimeMillis() - this.initialTime) / 1000
+						+ "seg");
+	}
+
+	private void esperarXsegundos(int segundos) {
+		try {
+			Thread.sleep(segundos * 1000);
+		} catch (InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+	}
+}
+						</code>
+					</pre>
+				</div>
+				<div>
+					<ul>
+						<b>Supermercado</b>
+						<p>
+							En este ejemplo elaborado mediante el uso de objetos en java se simula el proceso de compra en un supermercado, para esto se tiene la clase cliente y la clase cajero que es la que se va a paralelizar mediante la herencia de la clase Thread.
+						</p>
+					</ul>
+				</div>
+			</div>
+			<div class="spotlight">
+				<div class="content">
+					<h3>Ejemplo de Programación Paralela en Java</h3>
+					<pre>
+						<code>
+public class MainThread {
+
+	public static void main(String[] args) {
+
+		Cliente cliente1 = new Cliente("Cliente 1", new int[] { 2, 2, 1, 5, 2, 3 });
+		Cliente cliente2 = new Cliente("Cliente 2", new int[] { 1, 3, 5, 1, 1 });
+
+		// Tiempo inicial de referencia
+		long initialTime = System.currentTimeMillis();
+		CajeraThread cajera1 = new CajeraThread("Cajera 1", cliente1, initialTime);
+		CajeraThread cajera2 = new CajeraThread("Cajera 2", cliente2, initialTime);
+
+		cajera1.start();
+		cajera2.start();
+	}
+}
+						</code>
+					</pre>
+				</div>
+				<div>
+					<ul>
+						<b>Supermercado</b>
+						<p>
+							Se inicializan los dos hilos, luego se imprime en pantalla cada vez que se pasen los productos en cada cajero.<br/>
+							Se puede observar como se realiza de forma paralela la compra en cada cajero.
+						</p>
+					</ul>
+				</div>
+			</div>
+			<div class="spotlight">
+				<div class="content">
+					<h3>Ejemplo de Programación Paralela en Java</h3>
+					<pre>
+						<code>
+La cajera Cajera 1 COMIENZA A PROCESAR LA COMPRA DEL CLIENTE Cliente 1 EN EL TIEMPO: 0seg
+La cajera Cajera 2 COMIENZA A PROCESAR LA COMPRA DEL CLIENTE Cliente 2 EN EL TIEMPO: 0seg
+Procesado el producto 1 del cliente Cliente 2->Tiempo: 1seg
+Procesado el producto 1 del cliente Cliente 1->Tiempo: 2seg
+Procesado el producto 2 del cliente Cliente 2->Tiempo: 4seg
+Procesado el producto 2 del cliente Cliente 1->Tiempo: 4seg
+Procesado el producto 3 del cliente Cliente 1->Tiempo: 5seg
+Procesado el producto 3 del cliente Cliente 2->Tiempo: 9seg
+Procesado el producto 4 del cliente Cliente 2->Tiempo: 10seg
+Procesado el producto 4 del cliente Cliente 1->Tiempo: 10seg
+Procesado el producto 5 del cliente Cliente 2->Tiempo: 11seg
+La cajera Cajera 2 HA TERMINADO DE PROCESAR Cliente 2 EN EL TIEMPO: 11seg
+Procesado el producto 5 del cliente Cliente 1->Tiempo: 12seg
+Procesado el producto 6 del cliente Cliente 1->Tiempo: 15seg
+La cajera Cajera 1 HA TERMINADO DE PROCESAR Cliente 1 EN EL TIEMPO: 15seg
+						</code>
+					</pre>
+				</div>
+				<div>
+					<ul>
+						<b>Supermercado</b>
+						<p>
+							Resultados obtenidos al ejecutar el programa para los casos de ejemplo descritos en el main haciendo uso de dos hilos de trabajo.
+						</p>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<ul id="eleven" class="actions special">
+			<li><a href="./presentacion_p.pdf" class="button alt">Diapositivas Exposición</a></li>
+			<li><a href="./taller_p.pdf" class="button alt">Taller</a></li>
+		</ul>
+	</section>
+
+	<section id="twelve" class="wrapper">
+		<div class="inner split">
+			<h2 id="biblio">Bibliografía</h2>
+			<ol>
+
+				<li>
+					<a href="https://es.wikipedia.org/wiki/Computaci%C3%B3n_paralela">https://es.wikipedia.org/wiki/Computaci%C3%B3n_paralela</a>
+				</li>
+				<li>
+					<a href="https://computing.llnl.gov/tutorials/parallel_comp/">https://computing.llnl.gov/tutorials/parallel_comp/</a>
+				</li>
+				<li>
+					<a href="http://hdl.handle.net/10045/25282">http://hdl.handle.net/10045/25282</a>
+				</li>
+				<li>
+					<a href="http://informatica.uv.es/iiguia/ALP/materiales/1_1_a_ComputacionParalela.pdf">http://informatica.uv.es/iiguia/ALP/materiales/1_1_a_ComputacionParalela.pdf</a>
+				</li>
+				<li>
+					<a href="https://jarroba.com/multitarea-e-hilos-en-java-con-ejemplos-thread-runnable/">https://jarroba.com/multitarea-e-hilos-en-java-con-ejemplos-thread-runnable/</a>
+				</li>
+				<li>
+					<a href="http://lahuen.dcc.uchile.cl/mm_wiki/lib/exe/fetch.php?media=cpar:1-modelos.pdf">http://lahuen.dcc.uchile.cl/mm_wiki/lib/exe/fetch.php?media=cpar:1-modelos.pdf</a>
+				</li>
+				<li>
+					<a href="http://lsi.ugr.es/jmantas/pdp/tutoriales/tutorial_mpi.php?tuto=03_pi">http://lsi.ugr.es/jmantas/pdp/tutoriales/tutorial_mpi.php?tuto=03_pi</a>
+				</li>
+				<li>
+					<a href="http://ocw.uc3m.es/ingenieria-informatica/arquitectura-de-computadores-ii/materiales-de-clasee/mc-f-002-iii">http://ocw.uc3m.es/ingenieria-informatica/arquitectura-de-computadores-ii/materiales-de-clasee/mc-f-002-iii</a>
+				</li>
+				<li>
+					<a href="http://proparalelaydistribuida.blogdiario.com/tags/lenguajes-paralelos/">http://proparalelaydistribuida.blogdiario.com/tags/lenguajes-paralelos/</a>
+				</li>
+				<li>
+					<a href="http://repositoriodigital.uns.edu.ar/bitstream/123456789/2001/1/MgTesis%20Weinbach%20-%20Paradigmas%20de%20Programacion%20en%20Paralelo.pdf">http://repositoriodigital.uns.edu.ar/bitstream/123456789/2001/1/MgTesis%20Weinbach%20-%20Paradigmas%20de%20Programacion<br/>%20en%20Paralelo.pdf</a>
+				</li>
+				<li>
+					<a href="http://web.mit.edu/vex/www/Parallel.pdf">http://web.mit.edu/vex/www/Parallel.pdf</a>
+				</li>
+				<li>
+					<a href="http://webdelprofesor.ula.ve/ingenieria/gilberto/paralela/07_ModelosDeProgramacionParalela.pdf">http://webdelprofesor.ula.ve/ingenieria/gilberto/paralela/07_ModelosDeProgramacionParalela.pdf</a>
+				</li>
+
+				<li>
+					<a href="http://webdelprofesor.ula.ve/ingenieria/gilberto/paralela/05_LeyDeAmdahlYMoore.pdf">http://webdelprofesor.ula.ve/ingenieria/gilberto/paralela/05_LeyDeAmdahlYMoore.pdf</a>
+				</li>
+				<li>
+					<a href="https://webdocs.cs.ualberta.ca/~paullu/C681/parallel.timeline.html">https://webdocs.cs.ualberta.ca/~paullu/C681/parallel.timeline.html</a>
+				</li>
+				<li>
+					<a href="https://www.agenciasinc.es/Noticias/La-UE-impulsa-la-computacion-paralela-para-aplicaciones-biomedicas">https://www.agenciasinc.es/Noticias/La-UE-impulsa-la-computacion-paralela-para-aplicaciones-biomedicas</a>
+				</li>
+				<li>
+					<a href="https://www.cs.purdue.edu/homes/ayg/book/Slides/">https://www.cs.purdue.edu/homes/ayg/book/Slides/</a>
+				</li>
+				<li>
+					<a href="http://www.cs.buap.mx/~mtovar/doc/ProgConc/ProgramacionParalela.pdf">http://www.cs.buap.mx/~mtovar/doc/ProgConc/ProgramacionParalela.pdf</a>
+				</li>
+
+				<li>
+					<a href="http://www.saber.ula.ve/bitstream/123456789/15969/1/com_par.pdf">http://www.saber.ula.ve/bitstream/123456789/15969/1/com_par.pdf</a>
+				</li>
+				<li>
+					C++ Multithreading - Tutorialspoint. (2010). tutorialspoint. https://www.tutorialspoint.com/cplusplus/cpp_multithreading.htm
+				</li>
+				<li>
+					Colaboradores de Wikipedia. (2020, 14 noviembre). CUDA. Wikipedia, la enciclopedia libre. https://es.wikipedia.org/wiki/CUDA
+				</li>
+				<li>
+					Hello World from CUDA. (2012). subscription.packtpub.com. https://subscription.packtpub.com/book/programming/9781788996242/1/ch01lvl1sec03/hello-world-from-cuda
+				</li>
+				<li>
+					Hilos POSIX - POSIX Threads - qaz.wiki. (2011). es.qaz.wiki. https://es.qaz.wiki/wiki/POSIX_Threads
+				</li>
+				<li>
+					 <a href="https://www.udacity.com/course/intro-to-parallel-programming--cs344"> Intro to parallel programming. Udacity course</a>.
+				</li>
+				<li>
+					<a href="http://index-of.es/Programming/C++/O'Reilly Intel Threading Building Blocks OutFitting C++ for Multi-Core Processor Parallelism.pdf"> 
+						James Reinders.Intel Threading Building Blocks Outfitting C++ for Multi-Core Processor Parallelism. Oreilly, 2007.</a>
+				</li>
+				<li>
+					<a href="http://digilib.stmik-banjarbaru.ac.id/data.bc/18. Programming/2012 Structured Parallel Programming Patterns for Efficient Computation.pdf"> 
+						McCool, M. D., Robison, A. D., & Reinders, J. (2012). Structured parallel programming: Patterns for efficient computation. Waltham, MA: Elsevier, Inc.</a>
+				</li>
+				<li>
+					<a href="http://www.e-tahtam.com/~turgaybilgin/2013-2014-guz/ParalelProgramlama/ParallelProg.pdf">
+						 Pacheco, Peter. An introduction to parallel programming. Elsevier. 2011.</a>
+				</li>
+				
+				<li><a href="https://arxiv.org/abs/1701.00854"> Paul E. McKenney. Is Parallel Programming Hard, And, If So, What Can You Do About It?.2019 </a></li>
+				<li>
+					<a href="https://pdfs.semanticscholar.org/e8f4/b7b68e73f9dd7b9b8dcfd32de6d2ff24a26b.pdf?_ga=2.51242345.1320536918.1606532300-813819185.1605570904"> 
+						Paweł Czarnul, Jerzy Proficz and Krzysztof Drypczewski.Survey of Methodologies, Approaches, and Challenges in Parallel Programming Using High-Performance Computing Systems. 
+						Hindawi Scientific Programming, Vol 2020. Articulo ID 4176794.</a>
+				</li>
+				<li>
+					<a href="https://www.researchgate.net/publication/344832796_A_Survey_on_Parallel_Architectures_and_Programming_Models">  
+						Pervan, Branimir & Knezovic, Josip. (2020). A Survey on Parallel Architectures and Programming Models.  </a>
+				</li>
+				<li>
+					Presentaciones profesor Cesar Pedraza - Computación paralela y Distribuida
+				</li>
+				<li>
+					Rauber, T., & Runger, G. (n.d.). Parallel programming: For multicore and cluster systems. Springer Books.
+				</li>
+				<li><a href="http://www.jornadassarteco.org/js2012/papers/paper_125.pdf"> Sánchez, Luis Miguel. Fernández,Javier.  Sotomayor, Rafael y García, J. Daniel.  
+					Evaluación comparativa de modelos de programación paralela en arquitectura de memoria compartida. </a>
+				</li>
+				
+				<li><a href="http://www-e6.ijs.si/~roman/files/Book_jul2018/book/book.pdf">  Trobec, R., Slivnik, B., Bulić, P., Robič, B. Introduction to Parallel Computing:
+					From Algorithms to Programming on State-of-the-Art Platforms. 2018</a>
+				</li>
+				<li>
+					Whitson, G. P. (2016). Parallel Computing. Salem Press Encyclopedia Of Science,
+				</li>
+
+				
+
+
+
+			</ol>
+
+		</div>
+	</section>
+
+
+
+
+
+
+	<!-- Footer -->
+	<footer id="footer">
+		<div class="copyright">
+			Autores: Fabián Bernal, Camilo Albarracín, Juan Gaona,
+			Luis Giraldo, Camilo Mosquera, Santiago Peña,
+			Yeliana Torres, Juan Ovalle, José Nieto,
+			Diego Chacón, Samael Salcedo, Antonio Suarez,
+			Diego Cortés, Jose Pinzón, Pedro Higuera,
+			Cristian Baquero
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/skel.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
