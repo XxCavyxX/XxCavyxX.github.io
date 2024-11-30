@@ -1,0 +1,127 @@
+.titleGeneral{
+    width: 65%;
+    height: auto;
+    position: relative;
+    background-color: midnightblue;
+    top: 50px;
+    left: 30%;
+    
+
+}
+.titleGeneral h1{
+
+    font-size: 29px;
+    font-family: "Play",sans-serif;
+    text-align: center;
+    padding: 10px;
+}
+
+.content{
+    width: 63%;
+    position: relative;
+    
+    top: 70px;
+    left: 32%; 
+    
+}
+.t1{
+    background-color: rgba(5, 9, 31, 0.888); 
+    padding: 10px;
+
+}
+.t1 h3{
+    font-size: 25px;
+    font-family:"Play",sans-serif ;
+    text-align: left;
+    padding: 10px;
+    background-color: rgba(25, 25, 111, 0.8);
+    margin: 20px;
+    width: 30%;
+    
+}
+.t1 p{
+    padding: 10px;
+    font-size: 18px;
+    line-height: 1.2;
+    font-family: 'Montserrat Alternates', Courier, monospace;
+    text-align: justify;
+}
+.t1 p img{
+    width: 320px;
+    height: 260px;
+    float: right;
+    margin: 5px 10px;
+    border-radius: 2px;
+    
+}
+.t2 {
+    position: relative;
+   margin-top: 25px;
+    background-color: rgba(5, 9, 31, 0.888); 
+    padding: 10px;
+    
+
+}
+.t2 #im{
+    float: right;
+}
+.t2 h3{
+    font-size: 25px;
+    font-family:"Play",sans-serif ;
+    text-align: left;
+    padding: 10px;
+    background-color: rgba(25, 25, 111, 0.8);
+    margin: 20px;
+    width: 50%;
+}
+.t2 p{
+    padding: 10px;
+    font-size: 18px;
+    line-height: 1.2;
+    font-family: 'Montserrat Alternates', Courier, monospace;
+    text-align: justify;
+}
+.t2 p img{
+    width: 300px;
+    height: 240px;
+    float: left;
+    margin: 5px 10px;
+    border-radius: 2px;
+
+}
+.lateral{
+    position: absolute;
+    width: 30%;
+    top: 260px;
+    background-color: rgba(25, 25, 111, 0.8);
+    margin: 0 15px;
+
+}
+.lateral  h3{
+    font-size: 28px;
+    text-align: center;
+    font-family: "Play",sans-serif;
+    padding: 10px;
+}
+
+.tema{
+  position: absolute;
+  top :70px;
+  line-height: 2.1;
+
+}
+#tem {
+    transform: scale(0.9);
+    transition: transform 0.8s ease-in-out;
+}
+
+#tem:hover {
+    background-color: #0f0c29;
+    transform: scale(1.0);
+    transition: transform 0.8s ease-in-out;
+    font-style: bold;
+    font-size: large;
+}
+li{
+    list-style: none;
+}

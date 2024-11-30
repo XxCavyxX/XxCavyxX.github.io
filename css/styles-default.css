@@ -1,0 +1,142 @@
+
+:root {
+  --fondo: #f2f2f2;
+  --color-temario: #110a6f;
+  --temario-active: #2731bb;
+  --temario-active-border: #3207c0;
+  --fondo-general: rgba(5, 9, 31, 0.888 );
+  --fondo-index1: rgba(9, 13, 40, 0.581);
+}
+
+html {
+    scroll-behavior: smooth;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background: #000;
+    color: #fff;
+    background-image: image-set("../img/fondo.png");
+    background-clip: border-box;
+    backdrop-filter: blur(3px);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    font-size: 16px;
+    font-family: "Montserrat Alternates", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100px;
+    font-style: normal;
+  }
+  a {
+    text-decoration: none;
+  }
+  ul {
+    list-style: none;
+  }
+
+  /*Navegacion*/
+  
+  .container {
+    width: 100%;
+    margin: auto;
+    position: static;
+    background: var(--fondo-general);
+    padding: 10px 12px;
+    
+  }
+  
+  .nav {
+    font-size: 17px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 20px 0;
+    
+  }
+  .nav ul {
+    display: flex;
+  }
+  .nav ul li {
+    padding: 10px;
+  }
+  .nav-menu {
+    margin: 10px;
+  }
+  
+  .nav-menu a {
+    color: #aaa;
+    font-family: "Play";
+    font-size: 18px;
+  }
+  .nav-menu a.activo,
+  .nav-menu a:hover {
+    color: #fff;
+    cursor: pointer;
+  }
+  .logo {
+    font-size: 40px;
+    font-family: "Urbanist", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }  
+  
+.container-footer footer {
+  margin-top: 90px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  background: var(--fondo-general);
+  height: 160px;
+}
+
+footer {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.container-footer h3 {
+  text-align: left;
+  margin-left: 60px;
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.links-footer a {
+  font-size: 15px;
+  color: #aaa;
+  text-decoration: none;
+  line-height: 1.6;
+  margin: 120px;
+  font-family: "Play", sans-serif;
+}
+
+.container-footer a:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+.container-footer footer h4 {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  text-align: center;
+  align-self: end;
+  font-family: "Play", sans-serif;
+}
+
+.container-footer footer img {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  margin: 0px 10px;
+  width: 300px;
+  height: 80px;
+  align-self: center;
+  margin-left: 140px;
+}
+

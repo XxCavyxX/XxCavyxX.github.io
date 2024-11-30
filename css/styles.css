@@ -1,0 +1,262 @@
+.container-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+
+  row-gap: 70px;
+  grid-gap: 70px;
+  margin-bottom: 100px;
+}
+
+.container-main article {
+  grid-column: 1;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  margin: 20px;
+  background: var(--fondo-index1);
+  padding: 15px 15px;
+  color: #fff;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 80%;
+  border-radius: 10px;
+}
+
+.container-main article h3 {
+  margin: 25px;
+  padding: 20px;
+  color: #fff;
+  font-size: 45px;
+  font-family: "Play", sans-serif;
+  font-weight: 400;
+  font-style: bold;
+  text-align: center;
+}
+
+.container-main p {
+  line-height: 1.8;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  text-align: left;
+}
+
+.container-main img {
+  width: 330px;
+  height: 300px;
+  border-radius: 10px;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  margin-top: 60px;
+}
+
+.container-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  row-gap: 80px;
+  gap: 10px;
+}
+
+.container-info aside {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  margin-right: 120px;
+  padding: 20px 20px;
+  background: var(--fondo-index1);
+  border-radius: 10px;
+}
+
+.container-info h4 {
+  font-family: "Play", sans-serif;
+  font-size: 30px;
+  text-align: center;
+  padding-bottom: 15px;
+  font-style: italic;
+}
+
+.container-info p {
+  line-height: 1.9;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 300;
+
+  font-size: 20px;
+  font-style: normal;
+  text-align: left;
+}
+
+.container-info img {
+  background: #0e0e0e9e;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  border-radius: 10px;
+  width: 550px;
+  height: 400px;
+  margin-left: 130px;
+}
+
+.container-footer footer {
+  margin-top: 90px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  background: var(--fondo-general);
+  height: 160px;
+}
+
+footer {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.container-footer h3 {
+  text-align: left;
+  margin-left: 60px;
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.links-footer a {
+  font-size: 15px;
+  color: #aaa;
+  text-decoration: none;
+  line-height: 1.6;
+  margin: 120px;
+  font-family: "Play", sans-serif;
+}
+
+.container-footer a:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+.container-footer footer h4 {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  text-align: center;
+  align-self: end;
+  font-family: "Play", sans-serif;
+}
+
+.container-footer footer img {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  margin: 0px 10px;
+  width: 300px;
+  height: 80px;
+  align-self: center;
+  margin-left: 140px;
+}
+
+.contenedor {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+
+
+
+/* 
+.play-regular {
+  font-family: "Play", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.play-bold {
+  font-family: "Play", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.audiowide-regular {
+  font-family: "Audiowide", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.roboto-thin {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.roboto-light {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-medium {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.roboto-bold {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-black {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.roboto-thin-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.roboto-light-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.roboto-regular-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.roboto-medium-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.roboto-bold-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.roboto-black-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 100 to 900
+
+.montserrat-<uniquifier> {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+*/
